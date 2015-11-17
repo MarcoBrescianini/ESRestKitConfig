@@ -96,6 +96,7 @@
 		6E52AD629E132D0996F28AAC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		94FCF4EC039BCC84277DD4A5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C922705665A972D538B69476 /* ESConfigFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESConfigFixtures.m; sourceTree = "<group>"; };
+		C92271DE21573A975572C02D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		C92273A2B55689B9BACA7BC9 /* ESConfigFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESConfigFixtures.h; sourceTree = "<group>"; };
 		C92274BD228AB9CDB186FA0C /* ESRestKitConfig.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = ESRestKitConfig.podspec; sourceTree = "<group>"; };
 		C92277498D632A0180D23445 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 				A3E9B5A84F8CF9E434BC3472 /* Pods */,
 				FAC412ED78213E0BAD7F8D4C /* Frameworks */,
 				C92274BD228AB9CDB186FA0C /* ESRestKitConfig.podspec */,
+				C92271DE21573A975572C02D /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
