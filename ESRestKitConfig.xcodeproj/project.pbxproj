@@ -7,9 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56F2835873D9134E068550B7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542914448D882905391A6B68 /* Pods.framework */; };
 		59F523271BFB8038006CED35 /* ESRestKitConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523261BFB8038006CED35 /* ESRestKitConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59F5232E1BFB8038006CED35 /* ESRestKitConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F523231BFB8038006CED35 /* ESRestKitConfig.framework */; };
 		59F523331BFB8038006CED35 /* ESRestKitConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */; };
+		59F523611BFB80A0006CED35 /* ESPlistMappingFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523551BFB80A0006CED35 /* ESPlistMappingFactory.m */; };
+		59F523621BFB80A0006CED35 /* ESMappingFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523561BFB80A0006CED35 /* ESMappingFactory.h */; };
+		59F523631BFB80A0006CED35 /* ESPlistMappingFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523571BFB80A0006CED35 /* ESPlistMappingFactory.h */; };
+		59F523641BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523581BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.h */; };
+		59F523651BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523591BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.m */; };
+		59F523661BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F5235A1BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.h */; };
+		59F523671BFB80A0006CED35 /* ESRequestDescriptorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F5235B1BFB80A0006CED35 /* ESRequestDescriptorFactory.h */; };
+		59F523681BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5235C1BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.m */; };
+		59F523691BFB80A0006CED35 /* ESResponseDescriptionFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F5235D1BFB80A0006CED35 /* ESResponseDescriptionFactory.h */; };
+		59F5236A1BFB80A0006CED35 /* ESPlistRoutesFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F5235E1BFB80A0006CED35 /* ESPlistRoutesFactory.h */; };
+		59F5236B1BFB80A0006CED35 /* ESPlistRoutesFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5235F1BFB80A0006CED35 /* ESPlistRoutesFactory.m */; };
+		59F5236C1BFB80A0006CED35 /* ESRoutesFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523601BFB80A0006CED35 /* ESRoutesFactory.h */; };
+		59F523711BFB80C9006CED35 /* ESPlistRequestDescriptorFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5236D1BFB80C9006CED35 /* ESPlistRequestDescriptorFactoryTest.m */; };
+		59F523721BFB80C9006CED35 /* ESPlistResponseDescriptorFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5236E1BFB80C9006CED35 /* ESPlistResponseDescriptorFactoryTest.m */; };
+		59F523731BFB80C9006CED35 /* ESPlistRoutesFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5236F1BFB80C9006CED35 /* ESPlistRoutesFactoryTest.m */; };
+		59F523741BFB80C9006CED35 /* ESPlistMappingFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523701BFB80C9006CED35 /* ESPlistMappingFactoryTest.m */; };
+		59F523881BFB8188006CED35 /* ESBar+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523771BFB8188006CED35 /* ESBar+CoreDataProperties.m */; };
+		59F523891BFB8188006CED35 /* ESBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523791BFB8188006CED35 /* ESBar.m */; };
+		59F5238A1BFB8188006CED35 /* ESFoo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5237B1BFB8188006CED35 /* ESFoo+CoreDataProperties.m */; };
+		59F5238B1BFB8188006CED35 /* ESFoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5237D1BFB8188006CED35 /* ESFoo.m */; };
+		59F5238C1BFB8188006CED35 /* ESMultiple+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F5237F1BFB8188006CED35 /* ESMultiple+CoreDataProperties.m */; };
+		59F5238D1BFB8188006CED35 /* ESMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523811BFB8188006CED35 /* ESMultiple.m */; };
+		59F5238E1BFB8188006CED35 /* ESSuper+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523831BFB8188006CED35 /* ESSuper+CoreDataProperties.m */; };
+		59F5238F1BFB8188006CED35 /* ESSuper.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523851BFB8188006CED35 /* ESSuper.m */; };
+		59F523901BFB8188006CED35 /* MappingTestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59F523861BFB8188006CED35 /* MappingTestModel.xcdatamodeld */; };
+		A95B5C49E2CA74115BE192A1 /* Pods_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC9F43869E133DDD2CC4860 /* Pods_test.framework */; };
+		C922774E5A269F8664A11E92 /* ESConfigFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = C922705665A972D538B69476 /* ESConfigFixtures.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +51,54 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		397788264E26AC26CBAB378D /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Pods/Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
+		542914448D882905391A6B68 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F523231BFB8038006CED35 /* ESRestKitConfig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ESRestKitConfig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F523261BFB8038006CED35 /* ESRestKitConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESRestKitConfig.h; sourceTree = "<group>"; };
 		59F523281BFB8038006CED35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59F5232D1BFB8038006CED35 /* ESRestKitConfigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESRestKitConfigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESRestKitConfigTests.m; sourceTree = "<group>"; };
 		59F523341BFB8038006CED35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59F523551BFB80A0006CED35 /* ESPlistMappingFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistMappingFactory.m; sourceTree = "<group>"; };
+		59F523561BFB80A0006CED35 /* ESMappingFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESMappingFactory.h; sourceTree = "<group>"; };
+		59F523571BFB80A0006CED35 /* ESPlistMappingFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPlistMappingFactory.h; sourceTree = "<group>"; };
+		59F523581BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPlistRequestDescriptorFactory.h; sourceTree = "<group>"; };
+		59F523591BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistRequestDescriptorFactory.m; sourceTree = "<group>"; };
+		59F5235A1BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPlistResponseDescriptorFactory.h; sourceTree = "<group>"; };
+		59F5235B1BFB80A0006CED35 /* ESRequestDescriptorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRequestDescriptorFactory.h; sourceTree = "<group>"; };
+		59F5235C1BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistResponseDescriptorFactory.m; sourceTree = "<group>"; };
+		59F5235D1BFB80A0006CED35 /* ESResponseDescriptionFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESResponseDescriptionFactory.h; sourceTree = "<group>"; };
+		59F5235E1BFB80A0006CED35 /* ESPlistRoutesFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPlistRoutesFactory.h; sourceTree = "<group>"; };
+		59F5235F1BFB80A0006CED35 /* ESPlistRoutesFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistRoutesFactory.m; sourceTree = "<group>"; };
+		59F523601BFB80A0006CED35 /* ESRoutesFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRoutesFactory.h; sourceTree = "<group>"; };
+		59F5236D1BFB80C9006CED35 /* ESPlistRequestDescriptorFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistRequestDescriptorFactoryTest.m; sourceTree = "<group>"; };
+		59F5236E1BFB80C9006CED35 /* ESPlistResponseDescriptorFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistResponseDescriptorFactoryTest.m; sourceTree = "<group>"; };
+		59F5236F1BFB80C9006CED35 /* ESPlistRoutesFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistRoutesFactoryTest.m; sourceTree = "<group>"; };
+		59F523701BFB80C9006CED35 /* ESPlistMappingFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistMappingFactoryTest.m; sourceTree = "<group>"; };
+		59F523761BFB8188006CED35 /* ESBar+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESBar+CoreDataProperties.h"; sourceTree = "<group>"; };
+		59F523771BFB8188006CED35 /* ESBar+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ESBar+CoreDataProperties.m"; sourceTree = "<group>"; };
+		59F523781BFB8188006CED35 /* ESBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESBar.h; sourceTree = "<group>"; };
+		59F523791BFB8188006CED35 /* ESBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESBar.m; sourceTree = "<group>"; };
+		59F5237A1BFB8188006CED35 /* ESFoo+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESFoo+CoreDataProperties.h"; sourceTree = "<group>"; };
+		59F5237B1BFB8188006CED35 /* ESFoo+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ESFoo+CoreDataProperties.m"; sourceTree = "<group>"; };
+		59F5237C1BFB8188006CED35 /* ESFoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESFoo.h; sourceTree = "<group>"; };
+		59F5237D1BFB8188006CED35 /* ESFoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESFoo.m; sourceTree = "<group>"; };
+		59F5237E1BFB8188006CED35 /* ESMultiple+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESMultiple+CoreDataProperties.h"; sourceTree = "<group>"; };
+		59F5237F1BFB8188006CED35 /* ESMultiple+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ESMultiple+CoreDataProperties.m"; sourceTree = "<group>"; };
+		59F523801BFB8188006CED35 /* ESMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESMultiple.h; sourceTree = "<group>"; };
+		59F523811BFB8188006CED35 /* ESMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESMultiple.m; sourceTree = "<group>"; };
+		59F523821BFB8188006CED35 /* ESSuper+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESSuper+CoreDataProperties.h"; sourceTree = "<group>"; };
+		59F523831BFB8188006CED35 /* ESSuper+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ESSuper+CoreDataProperties.m"; sourceTree = "<group>"; };
+		59F523841BFB8188006CED35 /* ESSuper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSuper.h; sourceTree = "<group>"; };
+		59F523851BFB8188006CED35 /* ESSuper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESSuper.m; sourceTree = "<group>"; };
+		59F523871BFB8188006CED35 /* MappingTestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MappingTestModel.xcdatamodel; sourceTree = "<group>"; };
+		5B2E1A23CDC7EC3E5E48FFA8 /* Pods-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-test/Pods-test.debug.xcconfig"; sourceTree = "<group>"; };
+		6E52AD629E132D0996F28AAC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		94FCF4EC039BCC84277DD4A5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C922705665A972D538B69476 /* ESConfigFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESConfigFixtures.m; sourceTree = "<group>"; };
+		C92273A2B55689B9BACA7BC9 /* ESConfigFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESConfigFixtures.h; sourceTree = "<group>"; };
+		C92277498D632A0180D23445 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		EFC9F43869E133DDD2CC4860 /* Pods_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56F2835873D9134E068550B7 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59F5232E1BFB8038006CED35 /* ESRestKitConfig.framework in Frameworks */,
+				A95B5C49E2CA74115BE192A1 /* Pods_test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +128,9 @@
 				59F523251BFB8038006CED35 /* ESRestKitConfig */,
 				59F523311BFB8038006CED35 /* ESRestKitConfigTests */,
 				59F523241BFB8038006CED35 /* Products */,
+				C92277498D632A0180D23445 /* .gitignore */,
+				A3E9B5A84F8CF9E434BC3472 /* Pods */,
+				FAC412ED78213E0BAD7F8D4C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +146,18 @@
 		59F523251BFB8038006CED35 /* ESRestKitConfig */ = {
 			isa = PBXGroup;
 			children = (
+				59F523551BFB80A0006CED35 /* ESPlistMappingFactory.m */,
+				59F523561BFB80A0006CED35 /* ESMappingFactory.h */,
+				59F523571BFB80A0006CED35 /* ESPlistMappingFactory.h */,
+				59F523581BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.h */,
+				59F523591BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.m */,
+				59F5235A1BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.h */,
+				59F5235B1BFB80A0006CED35 /* ESRequestDescriptorFactory.h */,
+				59F5235C1BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.m */,
+				59F5235D1BFB80A0006CED35 /* ESResponseDescriptionFactory.h */,
+				59F5235E1BFB80A0006CED35 /* ESPlistRoutesFactory.h */,
+				59F5235F1BFB80A0006CED35 /* ESPlistRoutesFactory.m */,
+				59F523601BFB80A0006CED35 /* ESRoutesFactory.h */,
 				59F523261BFB8038006CED35 /* ESRestKitConfig.h */,
 				59F523281BFB8038006CED35 /* Info.plist */,
 			);
@@ -80,10 +167,61 @@
 		59F523311BFB8038006CED35 /* ESRestKitConfigTests */ = {
 			isa = PBXGroup;
 			children = (
+				59F523751BFB8188006CED35 /* MappingTestModel */,
+				59F523861BFB8188006CED35 /* MappingTestModel.xcdatamodeld */,
+				59F5236D1BFB80C9006CED35 /* ESPlistRequestDescriptorFactoryTest.m */,
+				59F5236E1BFB80C9006CED35 /* ESPlistResponseDescriptorFactoryTest.m */,
+				59F5236F1BFB80C9006CED35 /* ESPlistRoutesFactoryTest.m */,
+				59F523701BFB80C9006CED35 /* ESPlistMappingFactoryTest.m */,
 				59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */,
 				59F523341BFB8038006CED35 /* Info.plist */,
+				C92273A2B55689B9BACA7BC9 /* ESConfigFixtures.h */,
+				C922705665A972D538B69476 /* ESConfigFixtures.m */,
 			);
 			path = ESRestKitConfigTests;
+			sourceTree = "<group>";
+		};
+		59F523751BFB8188006CED35 /* MappingTestModel */ = {
+			isa = PBXGroup;
+			children = (
+				59F523761BFB8188006CED35 /* ESBar+CoreDataProperties.h */,
+				59F523771BFB8188006CED35 /* ESBar+CoreDataProperties.m */,
+				59F523781BFB8188006CED35 /* ESBar.h */,
+				59F523791BFB8188006CED35 /* ESBar.m */,
+				59F5237A1BFB8188006CED35 /* ESFoo+CoreDataProperties.h */,
+				59F5237B1BFB8188006CED35 /* ESFoo+CoreDataProperties.m */,
+				59F5237C1BFB8188006CED35 /* ESFoo.h */,
+				59F5237D1BFB8188006CED35 /* ESFoo.m */,
+				59F5237E1BFB8188006CED35 /* ESMultiple+CoreDataProperties.h */,
+				59F5237F1BFB8188006CED35 /* ESMultiple+CoreDataProperties.m */,
+				59F523801BFB8188006CED35 /* ESMultiple.h */,
+				59F523811BFB8188006CED35 /* ESMultiple.m */,
+				59F523821BFB8188006CED35 /* ESSuper+CoreDataProperties.h */,
+				59F523831BFB8188006CED35 /* ESSuper+CoreDataProperties.m */,
+				59F523841BFB8188006CED35 /* ESSuper.h */,
+				59F523851BFB8188006CED35 /* ESSuper.m */,
+			);
+			path = MappingTestModel;
+			sourceTree = "<group>";
+		};
+		A3E9B5A84F8CF9E434BC3472 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				94FCF4EC039BCC84277DD4A5 /* Pods.debug.xcconfig */,
+				6E52AD629E132D0996F28AAC /* Pods.release.xcconfig */,
+				5B2E1A23CDC7EC3E5E48FFA8 /* Pods-test.debug.xcconfig */,
+				397788264E26AC26CBAB378D /* Pods-test.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FAC412ED78213E0BAD7F8D4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				542914448D882905391A6B68 /* Pods.framework */,
+				EFC9F43869E133DDD2CC4860 /* Pods_test.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,7 +231,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F523641BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.h in Headers */,
 				59F523271BFB8038006CED35 /* ESRestKitConfig.h in Headers */,
+				59F523631BFB80A0006CED35 /* ESPlistMappingFactory.h in Headers */,
+				59F523671BFB80A0006CED35 /* ESRequestDescriptorFactory.h in Headers */,
+				59F523621BFB80A0006CED35 /* ESMappingFactory.h in Headers */,
+				59F523661BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.h in Headers */,
+				59F523691BFB80A0006CED35 /* ESResponseDescriptionFactory.h in Headers */,
+				59F5236A1BFB80A0006CED35 /* ESPlistRoutesFactory.h in Headers */,
+				59F5236C1BFB80A0006CED35 /* ESRoutesFactory.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,10 +250,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 59F523371BFB8038006CED35 /* Build configuration list for PBXNativeTarget "ESRestKitConfig" */;
 			buildPhases = (
+				CD27F816F7AD55A5BFDA6E5E /* Check Pods Manifest.lock */,
 				59F5231E1BFB8038006CED35 /* Sources */,
 				59F5231F1BFB8038006CED35 /* Frameworks */,
 				59F523201BFB8038006CED35 /* Headers */,
 				59F523211BFB8038006CED35 /* Resources */,
+				714E66539CBB362193DF9271 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -122,9 +270,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 59F5233A1BFB8038006CED35 /* Build configuration list for PBXNativeTarget "ESRestKitConfigTests" */;
 			buildPhases = (
+				77BCDBF6B592E07C10CE9EFD /* Check Pods Manifest.lock */,
 				59F523291BFB8038006CED35 /* Sources */,
 				59F5232A1BFB8038006CED35 /* Frameworks */,
 				59F5232B1BFB8038006CED35 /* Resources */,
+				57C12F4A783AFC9D92532AA3 /* Embed Pods Frameworks */,
+				7DE69DF2A2BECE1CB2F6BB38 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -188,11 +339,93 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		57C12F4A783AFC9D92532AA3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-test/Pods-test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		714E66539CBB362193DF9271 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77BCDBF6B592E07C10CE9EFD /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7DE69DF2A2BECE1CB2F6BB38 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-test/Pods-test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD27F816F7AD55A5BFDA6E5E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		59F5231E1BFB8038006CED35 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F5236B1BFB80A0006CED35 /* ESPlistRoutesFactory.m in Sources */,
+				59F523611BFB80A0006CED35 /* ESPlistMappingFactory.m in Sources */,
+				59F523651BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.m in Sources */,
+				59F523681BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +433,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F523731BFB80C9006CED35 /* ESPlistRoutesFactoryTest.m in Sources */,
+				59F5238A1BFB8188006CED35 /* ESFoo+CoreDataProperties.m in Sources */,
+				59F5238F1BFB8188006CED35 /* ESSuper.m in Sources */,
+				59F523891BFB8188006CED35 /* ESBar.m in Sources */,
+				59F523721BFB80C9006CED35 /* ESPlistResponseDescriptorFactoryTest.m in Sources */,
 				59F523331BFB8038006CED35 /* ESRestKitConfigTests.m in Sources */,
+				59F5238D1BFB8188006CED35 /* ESMultiple.m in Sources */,
+				59F5238E1BFB8188006CED35 /* ESSuper+CoreDataProperties.m in Sources */,
+				59F523711BFB80C9006CED35 /* ESPlistRequestDescriptorFactoryTest.m in Sources */,
+				59F5238C1BFB8188006CED35 /* ESMultiple+CoreDataProperties.m in Sources */,
+				59F5238B1BFB8188006CED35 /* ESFoo.m in Sources */,
+				59F523881BFB8188006CED35 /* ESBar+CoreDataProperties.m in Sources */,
+				59F523901BFB8188006CED35 /* MappingTestModel.xcdatamodeld in Sources */,
+				59F523741BFB80C9006CED35 /* ESPlistMappingFactoryTest.m in Sources */,
+				C922774E5A269F8664A11E92 /* ESConfigFixtures.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +499,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -293,7 +540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -305,6 +552,7 @@
 		};
 		59F523381BFB8038006CED35 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94FCF4EC039BCC84277DD4A5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -312,6 +560,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ESRestKitConfig/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.engineering-solutions.ESRestKitConfig";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -321,6 +570,7 @@
 		};
 		59F523391BFB8038006CED35 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E52AD629E132D0996F28AAC /* Pods.release.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -328,6 +578,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ESRestKitConfig/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.engineering-solutions.ESRestKitConfig";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -337,6 +588,7 @@
 		};
 		59F5233B1BFB8038006CED35 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B2E1A23CDC7EC3E5E48FFA8 /* Pods-test.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ESRestKitConfigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -347,6 +599,7 @@
 		};
 		59F5233C1BFB8038006CED35 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 397788264E26AC26CBAB378D /* Pods-test.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ESRestKitConfigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -374,6 +627,7 @@
 				59F523391BFB8038006CED35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59F5233A1BFB8038006CED35 /* Build configuration list for PBXNativeTarget "ESRestKitConfigTests" */ = {
 			isa = XCConfigurationList;
@@ -382,8 +636,22 @@
 				59F5233C1BFB8038006CED35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		59F523861BFB8188006CED35 /* MappingTestModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				59F523871BFB8188006CED35 /* MappingTestModel.xcdatamodel */,
+			);
+			currentVersion = 59F523871BFB8188006CED35 /* MappingTestModel.xcdatamodel */;
+			path = MappingTestModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 59F5231A1BFB8038006CED35 /* Project object */;
 }
