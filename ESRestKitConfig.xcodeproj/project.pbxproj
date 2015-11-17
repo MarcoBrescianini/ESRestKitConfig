@@ -1,0 +1,389 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		59F523271BFB8038006CED35 /* ESRestKitConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523261BFB8038006CED35 /* ESRestKitConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59F5232E1BFB8038006CED35 /* ESRestKitConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F523231BFB8038006CED35 /* ESRestKitConfig.framework */; };
+		59F523331BFB8038006CED35 /* ESRestKitConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		59F5232F1BFB8038006CED35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59F5231A1BFB8038006CED35 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 59F523221BFB8038006CED35;
+			remoteInfo = ESRestKitConfig;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		59F523231BFB8038006CED35 /* ESRestKitConfig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ESRestKitConfig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59F523261BFB8038006CED35 /* ESRestKitConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESRestKitConfig.h; sourceTree = "<group>"; };
+		59F523281BFB8038006CED35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59F5232D1BFB8038006CED35 /* ESRestKitConfigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESRestKitConfigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESRestKitConfigTests.m; sourceTree = "<group>"; };
+		59F523341BFB8038006CED35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		59F5231F1BFB8038006CED35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59F5232A1BFB8038006CED35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59F5232E1BFB8038006CED35 /* ESRestKitConfig.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		59F523191BFB8038006CED35 = {
+			isa = PBXGroup;
+			children = (
+				59F523251BFB8038006CED35 /* ESRestKitConfig */,
+				59F523311BFB8038006CED35 /* ESRestKitConfigTests */,
+				59F523241BFB8038006CED35 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		59F523241BFB8038006CED35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				59F523231BFB8038006CED35 /* ESRestKitConfig.framework */,
+				59F5232D1BFB8038006CED35 /* ESRestKitConfigTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		59F523251BFB8038006CED35 /* ESRestKitConfig */ = {
+			isa = PBXGroup;
+			children = (
+				59F523261BFB8038006CED35 /* ESRestKitConfig.h */,
+				59F523281BFB8038006CED35 /* Info.plist */,
+			);
+			path = ESRestKitConfig;
+			sourceTree = "<group>";
+		};
+		59F523311BFB8038006CED35 /* ESRestKitConfigTests */ = {
+			isa = PBXGroup;
+			children = (
+				59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */,
+				59F523341BFB8038006CED35 /* Info.plist */,
+			);
+			path = ESRestKitConfigTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		59F523201BFB8038006CED35 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59F523271BFB8038006CED35 /* ESRestKitConfig.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		59F523221BFB8038006CED35 /* ESRestKitConfig */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59F523371BFB8038006CED35 /* Build configuration list for PBXNativeTarget "ESRestKitConfig" */;
+			buildPhases = (
+				59F5231E1BFB8038006CED35 /* Sources */,
+				59F5231F1BFB8038006CED35 /* Frameworks */,
+				59F523201BFB8038006CED35 /* Headers */,
+				59F523211BFB8038006CED35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ESRestKitConfig;
+			productName = ESRestKitConfig;
+			productReference = 59F523231BFB8038006CED35 /* ESRestKitConfig.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		59F5232C1BFB8038006CED35 /* ESRestKitConfigTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59F5233A1BFB8038006CED35 /* Build configuration list for PBXNativeTarget "ESRestKitConfigTests" */;
+			buildPhases = (
+				59F523291BFB8038006CED35 /* Sources */,
+				59F5232A1BFB8038006CED35 /* Frameworks */,
+				59F5232B1BFB8038006CED35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				59F523301BFB8038006CED35 /* PBXTargetDependency */,
+			);
+			name = ESRestKitConfigTests;
+			productName = ESRestKitConfigTests;
+			productReference = 59F5232D1BFB8038006CED35 /* ESRestKitConfigTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		59F5231A1BFB8038006CED35 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Engineering Solutions";
+				TargetAttributes = {
+					59F523221BFB8038006CED35 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					59F5232C1BFB8038006CED35 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 59F5231D1BFB8038006CED35 /* Build configuration list for PBXProject "ESRestKitConfig" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 59F523191BFB8038006CED35;
+			productRefGroup = 59F523241BFB8038006CED35 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				59F523221BFB8038006CED35 /* ESRestKitConfig */,
+				59F5232C1BFB8038006CED35 /* ESRestKitConfigTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		59F523211BFB8038006CED35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59F5232B1BFB8038006CED35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		59F5231E1BFB8038006CED35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59F523291BFB8038006CED35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59F523331BFB8038006CED35 /* ESRestKitConfigTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		59F523301BFB8038006CED35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 59F523221BFB8038006CED35 /* ESRestKitConfig */;
+			targetProxy = 59F5232F1BFB8038006CED35 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		59F523351BFB8038006CED35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		59F523361BFB8038006CED35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		59F523381BFB8038006CED35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ESRestKitConfig/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.engineering-solutions.ESRestKitConfig";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		59F523391BFB8038006CED35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ESRestKitConfig/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.engineering-solutions.ESRestKitConfig";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		59F5233B1BFB8038006CED35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ESRestKitConfigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.engineering-solutions.ESRestKitConfigTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		59F5233C1BFB8038006CED35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ESRestKitConfigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.engineering-solutions.ESRestKitConfigTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		59F5231D1BFB8038006CED35 /* Build configuration list for PBXProject "ESRestKitConfig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59F523351BFB8038006CED35 /* Debug */,
+				59F523361BFB8038006CED35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59F523371BFB8038006CED35 /* Build configuration list for PBXNativeTarget "ESRestKitConfig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59F523381BFB8038006CED35 /* Debug */,
+				59F523391BFB8038006CED35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		59F5233A1BFB8038006CED35 /* Build configuration list for PBXNativeTarget "ESRestKitConfigTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59F5233B1BFB8038006CED35 /* Debug */,
+				59F5233C1BFB8038006CED35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 59F5231A1BFB8038006CED35 /* Project object */;
+}
