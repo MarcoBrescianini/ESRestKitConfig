@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <RestKit/RestKit.h>
 
 #import "ESPlistRoutesFactory.h"
 #import "ESConfigFixtures.h"

@@ -10,7 +10,6 @@
 		56F2835873D9134E068550B7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542914448D882905391A6B68 /* Pods.framework */; };
 		59F523271BFB8038006CED35 /* ESRestKitConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523261BFB8038006CED35 /* ESRestKitConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59F5232E1BFB8038006CED35 /* ESRestKitConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F523231BFB8038006CED35 /* ESRestKitConfig.framework */; };
-		59F523331BFB8038006CED35 /* ESRestKitConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */; };
 		59F523611BFB80A0006CED35 /* ESPlistMappingFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523551BFB80A0006CED35 /* ESPlistMappingFactory.m */; };
 		59F523621BFB80A0006CED35 /* ESMappingFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523561BFB80A0006CED35 /* ESMappingFactory.h */; };
 		59F523631BFB80A0006CED35 /* ESPlistMappingFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 59F523571BFB80A0006CED35 /* ESPlistMappingFactory.h */; };
@@ -57,7 +56,6 @@
 		59F523261BFB8038006CED35 /* ESRestKitConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESRestKitConfig.h; sourceTree = "<group>"; };
 		59F523281BFB8038006CED35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59F5232D1BFB8038006CED35 /* ESRestKitConfigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESRestKitConfigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESRestKitConfigTests.m; sourceTree = "<group>"; };
 		59F523341BFB8038006CED35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59F523551BFB80A0006CED35 /* ESPlistMappingFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistMappingFactory.m; sourceTree = "<group>"; };
 		59F523561BFB80A0006CED35 /* ESMappingFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESMappingFactory.h; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 				59F5236E1BFB80C9006CED35 /* ESPlistResponseDescriptorFactoryTest.m */,
 				59F5236F1BFB80C9006CED35 /* ESPlistRoutesFactoryTest.m */,
 				59F523701BFB80C9006CED35 /* ESPlistMappingFactoryTest.m */,
-				59F523321BFB8038006CED35 /* ESRestKitConfigTests.m */,
 				59F523341BFB8038006CED35 /* Info.plist */,
 				C92273A2B55689B9BACA7BC9 /* ESConfigFixtures.h */,
 				C922705665A972D538B69476 /* ESConfigFixtures.m */,
@@ -442,7 +439,6 @@
 				59F5238F1BFB8188006CED35 /* ESSuper.m in Sources */,
 				59F523891BFB8188006CED35 /* ESBar.m in Sources */,
 				59F523721BFB80C9006CED35 /* ESPlistResponseDescriptorFactoryTest.m in Sources */,
-				59F523331BFB8038006CED35 /* ESRestKitConfigTests.m in Sources */,
 				59F5238D1BFB8188006CED35 /* ESMultiple.m in Sources */,
 				59F5238E1BFB8188006CED35 /* ESSuper+CoreDataProperties.m in Sources */,
 				59F523711BFB80C9006CED35 /* ESPlistRequestDescriptorFactoryTest.m in Sources */,
@@ -470,6 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -487,6 +484,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -517,6 +515,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -534,6 +533,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

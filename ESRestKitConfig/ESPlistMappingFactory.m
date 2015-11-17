@@ -6,6 +6,8 @@
 //  Copyright © 2015 Engineering Solutions. All rights reserved.
 //
 
+#import <RestKit/RestKit.h>
+
 #import "ESPlistMappingFactory.h"
 
 @implementation ESPlistMappingFactory

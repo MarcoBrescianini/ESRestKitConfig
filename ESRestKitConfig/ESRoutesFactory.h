@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
+
+@class RKRoute;
 
 @protocol ESRoutesFactory <NSObject>
 

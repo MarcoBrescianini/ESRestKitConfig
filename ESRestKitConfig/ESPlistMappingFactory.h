@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ESMappingFactory.h"
 
+@class RKManagedObjectStore;
+
 @interface ESPlistMappingFactory : NSObject<ESMappingFactory>
 
 

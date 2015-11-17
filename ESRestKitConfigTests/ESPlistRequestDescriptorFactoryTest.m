@@ -19,7 +19,7 @@
 {
     ESPlistRequestDescriptorFactory * factory;
 
-    TYMappingMap mappingMap;
+    ESMappingMap mappingMap;
 
     id fooMappingMock;
     id barMappingMock;

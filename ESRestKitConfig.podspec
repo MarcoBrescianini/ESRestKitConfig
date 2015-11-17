@@ -8,12 +8,12 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/MarcoBrescianini/ESRestKitConfig.git", :tag => s.version }
 
   s.platform     = :ios, '8.0'
+  s.ios.deployment_target = "8.0"
   s.requires_arc = true
-
-  s.source_files = 'ESRestKitConfig/*.{h,m}'
   s.module_name = 'ESRestKitConfig'
 
+  s.source_files = 'ESRestKitConfig/*.{h,m}'
   s.dependency 'RestKit'
 
-  s.frameworks = 'Foundation'
+  s.frameworks = 'SystemConfiguration', 'MobileCoreServices'
 end

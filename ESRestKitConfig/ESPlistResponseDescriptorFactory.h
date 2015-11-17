@@ -7,26 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
-#import <RestKit/CoreData.h>
 
 #import "ESResponseDescriptionFactory.h"
 
+@class RKRoute;
+@class RKMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSDictionary<NSString*, RKRoute*> * TYRouteMap;
-typedef NSDictionary<NSString*, RKMapping*> * TYMappingMap;
+typedef NSDictionary<NSString*, RKRoute*> *ESRouteMap;
+typedef NSDictionary<NSString*, RKMapping*> *ESMappingMap;
 
 @interface ESPlistResponseDescriptorFactory : NSObject<ESResponseDescriptionFactory>
 
-@property (nonatomic, strong, readonly, nonnull) TYRouteMap routes; //TODO: SHOULD BE READWRITE AND MOVED IN INTERFACE
-@property (nonatomic, strong, readonly, nonnull) TYMappingMap mappings; //TODO: SHOULD BE READWRITE AND MOVED IN INTERFACE
+@property (nonatomic, strong, readonly, nonnull) ESRouteMap routes; //TODO: SHOULD BE READWRITE AND MOVED IN INTERFACE
+@property (nonatomic, strong, readonly, nonnull) ESMappingMap mappings; //TODO: SHOULD BE READWRITE AND MOVED IN INTERFACE
 @property (nonatomic, strong, readonly, nonnull) NSDictionary * config;
 
--(instancetype)initWithRoutes:(TYRouteMap)routes mappings:(TYMappingMap)mappings config:(NSDictionary*)config;
--(instancetype)initWithRoutes:(TYRouteMap)routes mappings:(TYMappingMap)mappings filepath:(NSString*)filepath;
--(instancetype)initWithRoutes:(TYRouteMap)routes mappings:(TYMappingMap)mappings fromMainBundle:(NSString*)filename;
+-(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings config:(NSDictionary*)config;
+-(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings filepath:(NSString*)filepath;
+-(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings fromMainBundle:(NSString*)filename;
 
 -(RKResponseDescriptor*)descriptorForName:(NSString*)name;
 

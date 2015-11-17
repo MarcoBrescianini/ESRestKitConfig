@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RestKit/CoreData.h>
-#import <RestKit/RestKit.h>
+
+@class RKMapping;
 
 @protocol ESMappingFactory <NSObject>
 

@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
+#import <RestKit/RestKit.h>
 
 #import "ESPlistResponseDescriptorFactory.h"
 
@@ -17,8 +18,8 @@
 {
 	ESPlistResponseDescriptorFactory * factory;
 	
-	TYRouteMap routeMap;
-	TYMappingMap mappingMap;
+	ESRouteMap routeMap;
+	ESMappingMap mappingMap;
 	id fooMappingMock;
 	id barMappingMock;
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2015 Engineering Solutions. All rights reserved.
 //
 
+#import <RestKit/RestKit.h>
+
 #import "ESPlistResponseDescriptorFactory.h"
 
 @implementation ESPlistResponseDescriptorFactory
@@ -18,7 +20,7 @@
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Cannot call init, must call initWithRoutes" userInfo:nil];
 }
 
--(instancetype)initWithRoutes:(TYRouteMap)routes mappings:(TYMappingMap)mappings fromMainBundle:(NSString *)filename
+-(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings fromMainBundle:(NSString *)filename
 {
 	NSString * path = [[NSBundle mainBundle] pathForResource:filename ofType:@"plist"];
 	
@@ -28,12 +30,12 @@
 	return [self initWithRoutes:routes mappings:mappings filepath:path];
 }
 
--(instancetype)initWithRoutes:(TYRouteMap)routes mappings:(TYMappingMap)mappings filepath:(NSString *)filepath
+-(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings filepath:(NSString *)filepath
 {
 	return [self initWithRoutes:routes mappings:mappings config:[NSDictionary dictionaryWithContentsOfFile:filepath]];
 }
 
--(instancetype)initWithRoutes:(TYRouteMap)routes mappings:(TYMappingMap)mappings config:(NSDictionary *)config
+-(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings config:(NSDictionary *)config
 {
 	NSAssert(routes, @"Route dictionary must be provided");
 	NSAssert(routes.count > 0, @"At least one route must be provided");

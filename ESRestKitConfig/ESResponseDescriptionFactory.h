@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
+
+@class RKResponseDescriptor;
 
 @protocol ESResponseDescriptionFactory <NSObject>
 

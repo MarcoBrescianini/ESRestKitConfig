@@ -3,6 +3,8 @@
 // Copyright (c) 2015 Engineering Solutions. All rights reserved.
 //
 
+#import <RestKit/RestKit.h>
+
 #import "ESPlistRequestDescriptorFactory.h"
 
 
@@ -20,7 +22,7 @@
 }
 
 
-- (instancetype)initWithMappings:(TYMappingMap)mappings fromMainBundle:(NSString *)filename
+- (instancetype)initWithMappings:(ESMappingMap)mappings fromMainBundle:(NSString *)filename
 {
     NSString * path = [[NSBundle mainBundle] pathForResource:filename ofType:@"plist"];
 
@@ -30,12 +32,12 @@
     return [self initWithMappings:mappings filepath:path];
 }
 
-- (instancetype)initWithMappings:(TYMappingMap)mappings filepath:(NSString *)filepath
+- (instancetype)initWithMappings:(ESMappingMap)mappings filepath:(NSString *)filepath
 {
     return [self initWithMappings:mappings config:[NSDictionary dictionaryWithContentsOfFile:filepath] ];
 }
 
-- (instancetype)initWithMappings:(TYMappingMap)mappings config:(NSDictionary *)config
+- (instancetype)initWithMappings:(ESMappingMap)mappings config:(NSDictionary *)config
 {
     NSAssert(mappings.count > 0, @"A non empty mapping dictionary must be provided");
     NSAssert(config.count > 0, @"A non empty config dictionary must be provided");
