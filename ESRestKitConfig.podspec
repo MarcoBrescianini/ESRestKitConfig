@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ESRestKitConfig"
-  s.version          = "1.0"
+  s.version          = "1.1"
   s.summary          = "RestKit plist configuration helpers"
   s.homepage         = "https://github.com/MarcoBrescianini/ESRestKitConfig"
   s.license          = 'MIT'
