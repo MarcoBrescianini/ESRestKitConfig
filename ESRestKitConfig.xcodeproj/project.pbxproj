@@ -36,7 +36,10 @@
 		59F5238F1BFB8188006CED35 /* ESSuper.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F523851BFB8188006CED35 /* ESSuper.m */; };
 		59F523901BFB8188006CED35 /* MappingTestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59F523861BFB8188006CED35 /* MappingTestModel.xcdatamodeld */; };
 		A95B5C49E2CA74115BE192A1 /* Pods_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC9F43869E133DDD2CC4860 /* Pods_test.framework */; };
+		C9227287E525989E338BD25A /* RKRoute+ESAuthRequirement.m in Sources */ = {isa = PBXBuildFile; fileRef = C9227294DE7F862BFAA5EFDC /* RKRoute+ESAuthRequirement.m */; };
+		C92275E5A83D6DDF78B811E2 /* RKRoute+ESAuthRequirement.h in Headers */ = {isa = PBXBuildFile; fileRef = C92273DAFFFE794CB9D6D7E2 /* RKRoute+ESAuthRequirement.h */; };
 		C922774E5A269F8664A11E92 /* ESConfigFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = C922705665A972D538B69476 /* ESConfigFixtures.m */; };
+		C9227E4746582AF218457B5F /* RKRoute+ESAuthRequirementTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C92279FA41DD41D5B2FF8290 /* RKRoute+ESAuthRequirementTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,9 +98,12 @@
 		94FCF4EC039BCC84277DD4A5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C922705665A972D538B69476 /* ESConfigFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESConfigFixtures.m; sourceTree = "<group>"; };
 		C92271DE21573A975572C02D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C9227294DE7F862BFAA5EFDC /* RKRoute+ESAuthRequirement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKRoute+ESAuthRequirement.m"; sourceTree = "<group>"; };
 		C92273A2B55689B9BACA7BC9 /* ESConfigFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESConfigFixtures.h; sourceTree = "<group>"; };
+		C92273DAFFFE794CB9D6D7E2 /* RKRoute+ESAuthRequirement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKRoute+ESAuthRequirement.h"; sourceTree = "<group>"; };
 		C92274BD228AB9CDB186FA0C /* ESRestKitConfig.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = ESRestKitConfig.podspec; sourceTree = "<group>"; };
 		C92277498D632A0180D23445 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		C92279FA41DD41D5B2FF8290 /* RKRoute+ESAuthRequirementTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKRoute+ESAuthRequirementTest.m"; sourceTree = "<group>"; };
 		EFC9F43869E133DDD2CC4860 /* Pods_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -162,6 +168,8 @@
 				59F523601BFB80A0006CED35 /* ESRoutesFactory.h */,
 				59F523261BFB8038006CED35 /* ESRestKitConfig.h */,
 				59F523281BFB8038006CED35 /* Info.plist */,
+				C92273DAFFFE794CB9D6D7E2 /* RKRoute+ESAuthRequirement.h */,
+				C9227294DE7F862BFAA5EFDC /* RKRoute+ESAuthRequirement.m */,
 			);
 			path = ESRestKitConfig;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 				59F523341BFB8038006CED35 /* Info.plist */,
 				C92273A2B55689B9BACA7BC9 /* ESConfigFixtures.h */,
 				C922705665A972D538B69476 /* ESConfigFixtures.m */,
+				C92279FA41DD41D5B2FF8290 /* RKRoute+ESAuthRequirementTest.m */,
 			);
 			path = ESRestKitConfigTests;
 			sourceTree = "<group>";
@@ -241,6 +250,7 @@
 				59F523691BFB80A0006CED35 /* ESResponseDescriptionFactory.h in Headers */,
 				59F5236A1BFB80A0006CED35 /* ESPlistRoutesFactory.h in Headers */,
 				59F5236C1BFB80A0006CED35 /* ESRoutesFactory.h in Headers */,
+				C92275E5A83D6DDF78B811E2 /* RKRoute+ESAuthRequirement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +437,7 @@
 				59F523611BFB80A0006CED35 /* ESPlistMappingFactory.m in Sources */,
 				59F523651BFB80A0006CED35 /* ESPlistRequestDescriptorFactory.m in Sources */,
 				59F523681BFB80A0006CED35 /* ESPlistResponseDescriptorFactory.m in Sources */,
+				C9227287E525989E338BD25A /* RKRoute+ESAuthRequirement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +459,7 @@
 				59F523901BFB8188006CED35 /* MappingTestModel.xcdatamodeld in Sources */,
 				59F523741BFB80C9006CED35 /* ESPlistMappingFactoryTest.m in Sources */,
 				C922774E5A269F8664A11E92 /* ESConfigFixtures.m in Sources */,
+				C9227E4746582AF218457B5F /* RKRoute+ESAuthRequirementTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

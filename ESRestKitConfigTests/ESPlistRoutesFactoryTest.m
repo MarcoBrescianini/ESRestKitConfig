@@ -9,8 +9,11 @@
 #import <XCTest/XCTest.h>
 #import <RestKit/RestKit.h>
 
+
 #import "ESPlistRoutesFactory.h"
 #import "ESConfigFixtures.h"
+
+#import "RKRoute+ESAuthRequirement.h"
 
 @interface ESPlistRoutesFactoryTest : XCTestCase
 {
@@ -246,6 +249,32 @@
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
     XCTAssertThrowsSpecificNamed([factory routeWithName:name],NSException ,@"PlistMalformedException");
+}
+
+
+-(void)testRouteWithOAuthRequirement
+{
+    NSString *method = @"GET";
+    NSString *pattern = @"path/";
+    NSString *name = @"route_name";
+    NSNumber *requiresAuth = @YES;
+    NSString *authScope = @"scope";
+
+    NSDictionary *dictionary = @{
+            name : @{
+                    @"path"   : pattern,
+                    @"method" : method,
+                    @"authRequired" : requiresAuth,
+                    @"authScope" : authScope
+            }
+    };
+    factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
+
+    RKRoute *actual = [factory routeWithName:name];
+
+    [self assertRoute:actual hasName:name pattern:pattern forMethod:method];
+    XCTAssertTrue(actual.isAuthRequired);
+    XCTAssertEqualObjects(actual.authScope, authScope);
 }
 
 //-------------------------------------------------------------------------------------------
