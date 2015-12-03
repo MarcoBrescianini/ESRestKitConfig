@@ -54,12 +54,26 @@
 {
     NSDictionary * mappingDictionary = self.config[name];
 
-    RKMapping * mapping = [self createMappingFrom:mappingDictionary];
+    RKMapping * mapping;
+    if(mappingDictionary[@"Entity"])
+        mapping = [self buildEntityMappingFrom:mappingDictionary];
+    else if(mappingDictionary[@"Object"])
+        mapping = [self buildObjectMappingFrom:mappingDictionary];
+    else
+        @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping Target type not specified should be either Object or Entity" userInfo:nil];
 
     return mapping;
 }
 
-- (RKEntityMapping *)createMappingFrom:(NSDictionary *)mappingDictionary
+- (RKObjectMapping *)buildObjectMappingFrom:(NSDictionary *)dictionary
+{
+    RKObjectMapping * mapping = [RKObjectMapping mappingForClass:NSClassFromString(dictionary[@"Object"])];
+    [self addAttributesToMapping:mapping fromConf:dictionary];
+    [self addRelationshipsToMapping:mapping conf:dictionary];
+    return mapping;
+}
+
+- (RKEntityMapping *)buildEntityMappingFrom:(NSDictionary *)mappingDictionary
 {
     RKEntityMapping * mapping = [self createEntityMappingFromConf:mappingDictionary];
 
@@ -86,7 +100,7 @@
     return mapping;
 }
 
-- (void)addAttributesToMapping:(RKEntityMapping *)mapping fromConf:(NSDictionary *)conf
+- (void)addAttributesToMapping:(RKObjectMapping *)mapping fromConf:(NSDictionary *)conf
 {
     NSDictionary * attributesDictionary = conf[@"Attributes"];
 
@@ -130,7 +144,7 @@
     }
 }
 
-- (void)addRelationshipsToMapping:(RKEntityMapping *)mapping conf:(NSDictionary *)conf
+- (void)addRelationshipsToMapping:(RKObjectMapping *)mapping conf:(NSDictionary *)conf
 {
     NSArray * relationships = conf[@"Relationships"];
 
@@ -142,7 +156,7 @@
 
         if(relationshipConf[@"mapping"])
         {
-            mappingForRelationship = [self createMappingFrom:relationshipConf[@"mapping"]];
+            mappingForRelationship = [self buildEntityMappingFrom:relationshipConf[@"mapping"]];
         } else
             if(relationshipConf[@"mapping_ref"])
             {

@@ -14,6 +14,37 @@
 #import "ESPlistMappingFactory.h"
 #import "ESConfigFixtures.h"
 
+
+@interface ESDummyProfile : NSObject
+
+@property (nonatomic, strong) NSString * foo;
+@property (nonatomic, strong) NSString * bar;
+
+@end
+
+
+@implementation ESDummyProfile
+
+@end
+
+@interface ESDummy : NSObject
+
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSNumber* age;
+@property (nonatomic, strong) NSDate * birthday;
+@property (nonatomic, strong) NSString * camelCase;
+@property (nonatomic, strong) ESDummyProfile * profile;
+
+@end
+
+
+@implementation ESDummy
+
+@end
+
+
+
+
 @interface ESPlistMappingFactoryTest : XCTestCase
 {
     ESPlistMappingFactory *factory;
@@ -67,7 +98,6 @@ static RKManagedObjectStore *managedObjectStore;
 {
     [super setUp];
 
-
     fooAttributes = @{
             @"id"          : @"identifier",
             @"firstname"   : @"name",
@@ -104,6 +134,9 @@ static RKManagedObjectStore *managedObjectStore;
     multipleIdentificationAttrs = @[@"identifier"];
     multipleModificationAttr = @"updatedAt";
 }
+
+//-------------------------------------------------------------------------------------------
+#pragma mark - Init Tests
 
 - (void)testInitNilStoreThrows
 {
@@ -166,6 +199,9 @@ static RKManagedObjectStore *managedObjectStore;
     XCTAssertThrows([[ESPlistMappingFactory alloc] initWithDictionary:nil store:managedObjectStore]);
 }
 
+//-------------------------------------------------------------------------------------------
+#pragma mark - Logic Tests
+
 //TODO: Gestire le relazioni. Ossia i mapping referenziati nei mapping di relazione non devono essere ricorsivi
 
 - (void)testMappingWithName
@@ -189,7 +225,7 @@ static RKManagedObjectStore *managedObjectStore;
     RKEntityMapping *mapping = [factory mappingWithName:@"foo"];
 
     //Then
-    [self assertMapping:mapping equalsExpectedConfig:conf[@"foo"]];
+    [self assertEntityMapping:mapping equalsExpectedConfig:conf[@"foo"]];
 
     //TODO: TEST VALUE TRANSFORMERS ADDED PROPERLY!!!
 }
@@ -307,7 +343,7 @@ static RKManagedObjectStore *managedObjectStore;
 
     RKEntityMapping *mapping = [factory mappingWithName:@"foo"];
 
-    [self assertRelationships:mapping equalsDefinedInConf:conf];
+    [self assertRelationships:mapping equalsDefinedInConf:conf targetKey:@"foo"];
 }
 
 
@@ -339,7 +375,7 @@ static RKManagedObjectStore *managedObjectStore;
 
     RKEntityMapping *mapping = [factory mappingWithName:@"foo"];
 
-    [self assertRelationships:mapping equalsDefinedInConf:conf];
+    [self assertRelationships:mapping equalsDefinedInConf:conf targetKey:@"foo"];
 
 }
 
@@ -409,12 +445,90 @@ static RKManagedObjectStore *managedObjectStore;
 
     [mappings enumerateKeysAndObjectsUsingBlock:^(NSString *_Nonnull key, RKEntityMapping *_Nonnull obj, BOOL *_Nonnull stop) {
 
-        [self assertMapping:obj equalsExpectedConfig:conf[key]];
+        [self assertEntityMapping:obj equalsExpectedConfig:conf[key]];
     }];
 }
 
 
-- (void)assertMapping:(RKEntityMapping *)mapping equalsExpectedConfig:(NSDictionary *)config
+-(void)testObjectMapping
+{
+    NSDictionary * conf = @{
+            @"foo" : @{
+                    @"Object" : @"ESDummy",
+                    @"Attributes" : @{
+                            @"name" : @"name",
+                            @"age" : @"age",
+                            @"birthday" : @"birthday",
+                            @"camel_case" : @"camelCase"
+                    }
+            },
+    };
+
+    factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
+
+    RKObjectMapping * mapping  = (RKObjectMapping *) [factory mappingWithName:@"foo"];
+
+    XCTAssertNotNil(mapping);
+    XCTAssertTrue([mapping isKindOfClass:[RKObjectMapping class]]);
+    XCTAssertFalse([mapping isMemberOfClass:[RKObjectManager class]]);
+
+    [self assertObjectMapping:mapping equalsExpectedConfig:conf[@"foo"]];
+}
+
+
+-(void)testObjectMapping_withRelationships
+{
+    NSDictionary * conf = @{
+            @"dummy" : @{
+                    @"Object" : @"ESDummy",
+                    @"Attributes" : @{
+                            @"name" : @"name",
+                            @"age" : @"age",
+                            @"birthday" : @"birthday",
+                            @"camel_case" : @"camelCase"
+                    },
+                    @"Relationships" : @[
+                            @{
+                                    @"source"      : @"sourceKeyPath",
+                                    @"destination" : @"destinationKeyPath",
+                                    @"mapping_ref" : @"profile"
+                            }
+                    ]
+            },
+            @"profile" : @{
+                    @"Object" : @"ESDummyProfile",
+                    @"Attributes" : @{
+                            @"foo" : @"foo",
+                            @"bar" : @"bar"
+                    },
+            }
+    };
+
+    factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
+
+    RKObjectMapping * mapping  = (RKObjectMapping *) [factory mappingWithName:@"dummy"];
+
+    XCTAssertNotNil(mapping);
+    XCTAssertTrue([mapping isKindOfClass:[RKObjectMapping class]]);
+    XCTAssertFalse([mapping isMemberOfClass:[RKObjectManager class]]);
+    XCTAssertTrue(mapping.relationshipMappings.count > 0);
+
+    [self assertObjectMapping:mapping equalsExpectedConfig:conf[@"dummy"]];
+    [self assertRelationships:mapping equalsDefinedInConf:conf targetKey:@"dummy"];
+}
+
+//-------------------------------------------------------------------------------------------
+#pragma mark - Assertions
+
+
+-(void)assertObjectMapping:(RKObjectMapping*)mapping equalsExpectedConfig:(NSDictionary *)config
+{
+    XCTAssertEqualObjects(NSClassFromString(config[@"Object"]), mapping.objectClass);
+    [self assertAttributeFromMapping:mapping equalsAttributes:config[@"Attributes"]];
+
+}
+
+- (void)assertEntityMapping:(RKEntityMapping *)mapping equalsExpectedConfig:(NSDictionary *)config
 {
     [self assertEntityNameInMapping:mapping equals:config[@"Entity"]];
     [self assertAttributeFromMapping:mapping equalsAttributes:config[@"Attributes"]];
@@ -429,7 +543,7 @@ static RKManagedObjectStore *managedObjectStore;
     XCTAssertEqualObjects(mapping.entity.name, expectedEntity.name);
 }
 
-- (void)assertAttributeFromMapping:(RKEntityMapping *)mapping
+- (void)assertAttributeFromMapping:(RKObjectMapping *)mapping
                   equalsAttributes:(NSDictionary<NSString *, NSString *> *)expectedAttributes
 {
     XCTAssertEqual(expectedAttributes.count, mapping.attributeMappings.count);
@@ -464,7 +578,7 @@ static RKManagedObjectStore *managedObjectStore;
     XCTAssertEqualObjects(mapping.modificationAttribute, attrDesc);
 }
 
-- (void)assertRelationships:(RKEntityMapping *)mapping equalsDefinedInConf:(NSDictionary *)conf
+- (void)assertRelationships:(RKObjectMapping *)mapping equalsDefinedInConf:(NSDictionary *)conf targetKey:(NSString *)target
 {
     for (NSInteger i = 0; i < mapping.relationshipMappings.count; ++i)
     {
@@ -472,17 +586,29 @@ static RKManagedObjectStore *managedObjectStore;
 
         XCTAssertNotNil(relationshipMapping);
 
-        XCTAssertEqualObjects(relationshipMapping.sourceKeyPath, conf[@"foo"][@"Relationships"][i][@"source"]);
-        XCTAssertEqualObjects(relationshipMapping.destinationKeyPath, conf[@"foo"][@"Relationships"][i][@"destination"]);
+        XCTAssertEqualObjects(relationshipMapping.sourceKeyPath, conf[target][@"Relationships"][i][@"source"]);
+        XCTAssertEqualObjects(relationshipMapping.destinationKeyPath, conf[target][@"Relationships"][i][@"destination"]);
 
-        if (conf[@"foo"][@"Relationships"][i][@"mapping"])
+        if (conf[target][@"Relationships"][i][@"mapping"])
         {
-            [self assertMapping:(RKEntityMapping *) relationshipMapping.mapping
-           equalsExpectedConfig:conf[@"foo"][@"Relationships"][i][@"mapping"]];
-        } else if (conf[@"foo"][@"Relationships"][i][@"mapping_ref"])
+            if([relationshipMapping.mapping isKindOfClass:[RKEntityMapping class]])
+            {
+                [self assertEntityMapping:(RKEntityMapping *) relationshipMapping.mapping
+                     equalsExpectedConfig:conf[target][@"Relationships"][i][@"mapping"]];
+            } else
+            {
+                [self assertObjectMapping:(RKObjectMapping *) relationshipMapping.mapping equalsExpectedConfig:conf[target][@"Relationships"][i][@"mapping"]];
+            }
+        } else if (conf[target][@"Relationships"][i][@"mapping_ref"])
         {
-            [self assertMapping:(RKEntityMapping *) relationshipMapping.mapping
-           equalsExpectedConfig:conf[conf[@"foo"][@"Relationships"][i][@"mapping_ref"]]];
+            if([relationshipMapping.mapping isKindOfClass:[RKEntityMapping class]])
+            {
+                [self assertEntityMapping:(RKEntityMapping *) relationshipMapping.mapping
+                     equalsExpectedConfig:conf[conf[target][@"Relationships"][i][@"mapping_ref"]]];
+            } else
+            {
+                [self assertObjectMapping:(RKObjectMapping *) relationshipMapping.mapping equalsExpectedConfig:conf[conf[target][@"Relationships"][i][@"mapping_ref"]]];
+            }
         } else
         {
             XCTFail(@"Mapping conf not found");
