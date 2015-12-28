@@ -22,6 +22,35 @@
 
 @end
 
+@interface ESClothing : NSObject
+
+@property (nonatomic, strong) NSNumber * size;
+
+@end
+
+@implementation ESClothing
+
+@end
+
+@interface ESSkirt : ESClothing
+
+@property (nonatomic, strong) NSString * type;
+
+
+@end
+
+@implementation ESSkirt
+@end
+
+
+@interface ESTrousers : ESClothing
+
+@end
+
+@implementation ESTrousers
+
+@end
+
 
 @implementation ESDummyProfile
 
@@ -31,9 +60,11 @@
 
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSNumber* age;
+@property (nonatomic, strong) NSString * gender;
 @property (nonatomic, strong) NSDate * birthday;
 @property (nonatomic, strong) NSString * camelCase;
 @property (nonatomic, strong) ESDummyProfile * profile;
+@property (nonatomic, strong) ESClothing * clothing;
 
 @end
 
@@ -41,8 +72,6 @@
 @implementation ESDummy
 
 @end
-
-
 
 
 @interface ESPlistMappingFactoryTest : XCTestCase
@@ -515,6 +544,57 @@ static RKManagedObjectStore *managedObjectStore;
 
     [self assertObjectMapping:mapping equalsExpectedConfig:conf[@"dummy"]];
     [self assertRelationships:mapping equalsDefinedInConf:conf targetKey:@"dummy"];
+}
+
+
+-(void)testDynamicMapping
+{
+    NSDictionary * conf = @{
+            @"clothing" : @{
+                    @"Dynamic" : @"",
+                    @"Matchers" : @[
+                            @{
+                                    @"keyPath" : @"keyPath",
+                                    @"expectedValue" : @"trou",
+                                    @"mapping_ref" : @"trousers"
+                            },
+                            @{
+                                    @"keyPath" : @"keyPath",
+                                    @"expectedValue" : @"mini",
+                                    @"mapping_ref" : @"mini_skirt"
+                            }
+                    ]
+            },
+            @"trousers" : @{
+                    @"Object" : @"ESTrousers",
+                    @"Attributes" : @{
+                            @"size" : @"size"
+                    }
+            },
+            @"mini_skirt" : @{
+                    @"Object" : @"ESSkirt",
+                    @"Attributes" : @{
+                            @"size" : @"size",
+                            @"type" : @"type"
+                    }
+            }
+    };
+
+    factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
+    RKMapping * mapping = [factory mappingWithName:@"clothing"];
+    
+    XCTAssertNotNil(mapping);
+    XCTAssertTrue([mapping isKindOfClass:[RKDynamicMapping class]]);
+    RKDynamicMapping *dynamicMapping = (RKDynamicMapping *)mapping;
+
+    XCTAssertTrue([dynamicMapping matchers].count == 2);
+
+    RKObjectMappingMatcher * firstMatcher = [dynamicMapping.matchers firstObject];
+    RKObjectMappingMatcher * secondMatcher = [dynamicMapping.matchers lastObject];
+
+    XCTAssertEqualObjects(firstMatcher.objectMapping.objectClass, NSClassFromString(@"ESTrousers"));
+    XCTAssertEqualObjects(secondMatcher.objectMapping.objectClass, NSClassFromString(@"ESSkirt"));
+
 }
 
 //-------------------------------------------------------------------------------------------

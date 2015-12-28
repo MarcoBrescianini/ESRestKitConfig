@@ -59,10 +59,47 @@
         mapping = [self buildEntityMappingFrom:mappingDictionary];
     else if(mappingDictionary[@"Object"])
         mapping = [self buildObjectMappingFrom:mappingDictionary];
+    else if(mappingDictionary[@"Dynamic"])
+        mapping = [self buildDynamicMappingFrom:mappingDictionary];
     else
-        @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping Target type not specified should be either Object or Entity" userInfo:nil];
+        @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping Target type not specified should be either Object, Entity or Dynamic" userInfo:nil];
 
     return mapping;
+}
+
+- (RKMapping *)buildDynamicMappingFrom:(NSDictionary *)dictionary
+{
+    RKDynamicMapping * mapping = [RKDynamicMapping new];
+
+    [self addMatchersToMapping:mapping fromConf:dictionary];
+
+    return mapping;
+}
+
+- (void)addMatchersToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf
+{
+    NSArray * matchersConf =  conf[@"Matchers"];
+
+    for (NSDictionary * matcherConf in matchersConf)
+    {
+        [self addMatcherToMapping:mapping fromConf:matcherConf];
+    }
+}
+
+- (void)addMatcherToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf
+{
+    NSString * keyPath = conf[@"keyPath"];
+    id expectedValue = conf[@"expectedValue"];
+    NSString * mappingRef = conf[@"mapping_ref"];
+    RKMapping * objectMapping = [self mappingWithName:mappingRef];
+
+    if([objectMapping isKindOfClass:[RKObjectMapping class]])
+    {
+        RKObjectMappingMatcher * matcher = [RKObjectMappingMatcher matcherWithKeyPath:keyPath expectedValue:expectedValue objectMapping:(RKObjectMapping *) objectMapping];
+
+        [mapping addMatcher:matcher];
+    }
+
 }
 
 - (RKObjectMapping *)buildObjectMappingFrom:(NSDictionary *)dictionary
