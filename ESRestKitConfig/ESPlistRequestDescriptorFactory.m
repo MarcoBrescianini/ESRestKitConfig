@@ -61,14 +61,14 @@
     NSMutableArray<RKRequestDescriptor *>* descriptors = [[NSMutableArray alloc]
             initWithCapacity:self.config.count];
     [self.config enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSDictionary * obj, BOOL *stop) {
-        RKRequestDescriptor * descriptor = [self descriptorForName:key];
+        RKRequestDescriptor * descriptor = [self createDescriptorNamed:key];
         [descriptors addObject:descriptor];
     }];
 
     return descriptors;
 }
 
-- (RKRequestDescriptor *)descriptorForName:(NSString *)name
+- (RKRequestDescriptor *)createDescriptorNamed:(NSString *)name
 {
     NSDictionary * descriptorConf = self.config[name];
 

@@ -9,6 +9,7 @@
 
 @protocol ESRequestDescriptorFactory <NSObject>
 
--(NSArray<RKRequestDescriptor *> *)createRequestDescriptors;
+- (NSArray<RKRequestDescriptor *> *)createRequestDescriptors;
+- (RKRequestDescriptor *)createDescriptorNamed:(NSString *)name;
 
 @end

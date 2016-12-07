@@ -251,7 +251,7 @@ static RKManagedObjectStore *managedObjectStore;
 
 
     //When
-    RKEntityMapping *mapping = [factory mappingWithName:@"foo"];
+    RKEntityMapping *mapping = [factory createMappingNamed:@"foo"];
 
     //Then
     [self assertEntityMapping:mapping equalsExpectedConfig:conf[@"foo"]];
@@ -271,7 +271,7 @@ static RKManagedObjectStore *managedObjectStore;
 
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    XCTAssertThrowsSpecificNamed([factory mappingWithName:@"foo"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 }
 
 - (void)testEntityNameNotString
@@ -284,7 +284,7 @@ static RKManagedObjectStore *managedObjectStore;
             }
     };
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    XCTAssertThrowsSpecificNamed([factory mappingWithName:@"foo"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 }
 
 - (void)testMissingAttributes
@@ -297,7 +297,7 @@ static RKManagedObjectStore *managedObjectStore;
     };
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    XCTAssertThrowsSpecificNamed([factory mappingWithName:@"foo"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 }
 
 - (void)testAttributesKeyPathNotDictionary
@@ -310,7 +310,7 @@ static RKManagedObjectStore *managedObjectStore;
             }
     };
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    XCTAssertThrowsSpecificNamed([factory mappingWithName:@"foo"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 }
 
 - (void)testIdentificationAttributesKeyPathNotArray
@@ -323,7 +323,7 @@ static RKManagedObjectStore *managedObjectStore;
             }
     };
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    XCTAssertThrowsSpecificNamed([factory mappingWithName:@"foo"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 
 }
 
@@ -339,7 +339,7 @@ static RKManagedObjectStore *managedObjectStore;
     };
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    XCTAssertThrowsSpecificNamed([factory mappingWithName:@"foo"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 
 }
 
@@ -370,7 +370,7 @@ static RKManagedObjectStore *managedObjectStore;
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
 
-    RKEntityMapping *mapping = [factory mappingWithName:@"foo"];
+    RKEntityMapping *mapping = [factory createMappingNamed:@"foo"];
 
     [self assertRelationships:mapping equalsDefinedInConf:conf targetKey:@"foo"];
 }
@@ -402,7 +402,7 @@ static RKManagedObjectStore *managedObjectStore;
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
 
-    RKEntityMapping *mapping = [factory mappingWithName:@"foo"];
+    RKEntityMapping *mapping = [factory createMappingNamed:@"foo"];
 
     [self assertRelationships:mapping equalsDefinedInConf:conf targetKey:@"foo"];
 
@@ -430,7 +430,7 @@ static RKManagedObjectStore *managedObjectStore;
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
 
-    RKEntityMapping *mapping = [factory mappingWithName:@"foo"];
+    RKEntityMapping *mapping = [factory createMappingNamed:@"foo"];
 
     NSArray * connections = [mapping connections];
 
@@ -495,7 +495,7 @@ static RKManagedObjectStore *managedObjectStore;
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
 
-    RKObjectMapping * mapping  = (RKObjectMapping *) [factory mappingWithName:@"foo"];
+    RKObjectMapping * mapping  = (RKObjectMapping *) [factory createMappingNamed:@"foo"];
 
     XCTAssertNotNil(mapping);
     XCTAssertTrue([mapping isKindOfClass:[RKObjectMapping class]]);
@@ -535,7 +535,7 @@ static RKManagedObjectStore *managedObjectStore;
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
 
-    RKObjectMapping * mapping  = (RKObjectMapping *) [factory mappingWithName:@"dummy"];
+    RKObjectMapping * mapping  = (RKObjectMapping *) [factory createMappingNamed:@"dummy"];
 
     XCTAssertNotNil(mapping);
     XCTAssertTrue([mapping isKindOfClass:[RKObjectMapping class]]);
@@ -581,7 +581,7 @@ static RKManagedObjectStore *managedObjectStore;
     };
 
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    RKMapping * mapping = [factory mappingWithName:@"clothing"];
+    RKMapping * mapping = [factory createMappingNamed:@"clothing"];
     
     XCTAssertNotNil(mapping);
     XCTAssertTrue([mapping isKindOfClass:[RKDynamicMapping class]]);

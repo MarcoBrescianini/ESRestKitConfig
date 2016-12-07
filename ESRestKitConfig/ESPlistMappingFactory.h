@@ -21,6 +21,6 @@
 -(instancetype)initWithPlistFile:(NSString*)filepath store:(RKManagedObjectStore*)store;
 -(instancetype)initWithDictionary:(NSDictionary*)config store:(RKManagedObjectStore*)store;
 
--(RKMapping*)mappingWithName:(NSString*)name;
+-(RKMapping*)createMappingNamed:(NSString*)name;
 
 @end

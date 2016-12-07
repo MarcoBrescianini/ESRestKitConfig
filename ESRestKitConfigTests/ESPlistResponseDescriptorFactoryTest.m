@@ -143,7 +143,7 @@
 							  };
 	factory = [[ESPlistResponseDescriptorFactory alloc] initWithRoutes:routeMap mappings:mappingMap config:config];
 	
-	RKResponseDescriptor * descriptor = [factory descriptorForName:@"desc"];
+	RKResponseDescriptor * descriptor = [factory createDescriptorNamed:@"desc"];
 	RKResponseDescriptor * expectedDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:fooMappingMock method:RKRequestMethodGET pathPattern:@"something/" keyPath:@"keypath" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 	
 	OCMStub([fooMappingMock isEqualToMapping:OCMOCK_ANY]).andReturn(YES);
@@ -167,7 +167,7 @@
 	
 	factory = [[ESPlistResponseDescriptorFactory alloc] initWithRoutes:routeMap mappings:mappingMap config:config];
 	
-	XCTAssertThrowsSpecificNamed([factory descriptorForName:@"desc"], NSException, @"PlistMalformedException");
+	XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
 }
 
 - (void)testStatusCodeNotFoundThrows
@@ -182,7 +182,7 @@
 											  }
 							  };
 	factory = [[ESPlistResponseDescriptorFactory alloc] initWithRoutes:routeMap mappings:mappingMap config:config];
-	XCTAssertThrowsSpecificNamed([factory descriptorForName:@"desc"], NSException, @"PlistMalformedException");
+	XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
 }
 
 - (void)testRouteNotFoundThrows
@@ -197,7 +197,7 @@
 											  }
 							  };
 	factory = [[ESPlistResponseDescriptorFactory alloc] initWithRoutes:routeMap mappings:mappingMap config:config];
-	XCTAssertThrowsSpecificNamed([factory descriptorForName:@"desc"], NSException, @"PlistMalformedException");
+	XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
 }
 
 - (void)testMappingNotFoundThrows
@@ -212,7 +212,7 @@
 											  }
 							  };
 	factory = [[ESPlistResponseDescriptorFactory alloc] initWithRoutes:routeMap mappings:mappingMap config:config];
-	XCTAssertThrowsSpecificNamed([factory descriptorForName:@"desc"], NSException, @"PlistMalformedException");
+	XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
 }
 
 - (void)testCreateResponseDescriptors

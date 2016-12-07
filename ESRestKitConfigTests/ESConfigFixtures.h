@@ -10,16 +10,15 @@
 
 @interface ESConfigFixtures : NSObject
 
-
-+(NSDictionary*)routesConfigDictionary;
-+(NSDictionary*)mappingConfigDictionary;
-+(NSDictionary*)responseConfigDictionary;
++ (NSDictionary *)routesConfigDictionary;
++ (NSDictionary *)mappingConfigDictionary;
++ (NSDictionary *)responseConfigDictionary;
 
 + (NSDictionary *)requestConfigDictionary;
 
-+(NSString*)writeRoutesFile:(NSDictionary*)config;
-+(NSString*)writeMappingFile:(NSDictionary*)config;
-+(NSString*)writeResponseFile:(NSDictionary*)config;
-
++ (NSString *)writeRoutesFile:(NSDictionary *)config;
++ (NSString *)writeMappingFile:(NSDictionary *)config;
++ (NSString *)writeResponseFile:(NSDictionary *)config;
 + (NSString *)writeRequestFile:(NSDictionary *)config;
+
 @end

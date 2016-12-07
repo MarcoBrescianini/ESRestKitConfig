@@ -65,14 +65,14 @@
 
     [self.config enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
 
-        RKResponseDescriptor * descriptor = [self descriptorForName:key];
+        RKResponseDescriptor * descriptor = [self createDescriptorNamed:key];
         [descriptors addObject:descriptor];
     }];
 
     return descriptors;
 }
 
--(RKResponseDescriptor *)descriptorForName:(NSString *)name
+-(RKResponseDescriptor *)createDescriptorNamed:(NSString *)name
 {
 	NSDictionary * descriptorConf = self.config[name];
 

@@ -13,5 +13,6 @@
 @protocol ESRoutesFactory <NSObject>
 
 -(NSDictionary<NSString*, RKRoute*>*)createRoutes;
+-(RKRoute*)createRouteNamed:(NSString*)routeName;
 
 @end

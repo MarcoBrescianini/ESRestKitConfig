@@ -44,7 +44,7 @@
     return self;
 }
 
-- (RKRoute *)routeWithName:(NSString *)routeName {
+- (RKRoute *)createRouteNamed:(NSString *)routeName {
     NSDictionary *routeInfo = self.config[routeName];
 
     NSString *pattern = routeInfo[@"path"];
@@ -92,7 +92,7 @@
     NSArray *keys = [self.config allKeys];
 
     for (NSString *routeName in keys) {
-        RKRoute *route = [self routeWithName:routeName];
+        RKRoute *route = [self createRouteNamed:routeName];
         [routes setValue:route forKey:routeName];
     }
 

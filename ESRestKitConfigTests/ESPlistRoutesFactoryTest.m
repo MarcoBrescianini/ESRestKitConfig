@@ -120,7 +120,7 @@
     };
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
-    RKRoute *actual = [factory routeWithName:name];
+    RKRoute *actual = [factory createRouteNamed:name];
 
     [self assertRoute:actual hasName:name pattern:pattern forMethod:method];
 }
@@ -138,7 +138,7 @@
 
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
-    XCTAssertThrows([factory routeWithName:@"route_name"]);
+    XCTAssertThrows([factory createRouteNamed:@"route_name"]);
 }
 
 - (void)testCreateRoutes
@@ -185,7 +185,7 @@
     };
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
-    RKRoute *actual = [factory routeWithName:name];
+    RKRoute *actual = [factory createRouteNamed:name];
     [self assertRoute:actual hasName:name pattern:pattern forMethod:method];
     XCTAssertEqualObjects(actual.objectClass, [NSString class]);
 }
@@ -206,7 +206,7 @@
     };
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
-    XCTAssertThrowsSpecificNamed([factory routeWithName:name],NSException ,@"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createRouteNamed:name],NSException ,@"PlistMalformedException");
 }
 
 
@@ -226,7 +226,7 @@
     };
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
-    RKRoute *actual = [factory routeWithName:name];
+    RKRoute *actual = [factory createRouteNamed:name];
     [self assertRoute:actual hasName:nil pattern:pattern forMethod:method];
     XCTAssertEqualObjects(actual.objectClass, [NSString class]);
 }
@@ -248,7 +248,7 @@
     };
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
-    XCTAssertThrowsSpecificNamed([factory routeWithName:name],NSException ,@"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createRouteNamed:name],NSException ,@"PlistMalformedException");
 }
 
 
@@ -270,7 +270,7 @@
     };
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
-    RKRoute *actual = [factory routeWithName:name];
+    RKRoute *actual = [factory createRouteNamed:name];
 
     [self assertRoute:actual hasName:name pattern:pattern forMethod:method];
     XCTAssertTrue(actual.isAuthRequired);

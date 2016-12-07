@@ -18,6 +18,6 @@
 -(instancetype)initWithPlistFilePath:(NSString*)filepath;
 -(instancetype)initWithDictionary:(NSDictionary*)dictionary;
 
--(RKRoute*)routeWithName:(NSString*)routeName;
+-(RKRoute*)createRouteNamed:(NSString*)routeName;
 
 @end

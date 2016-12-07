@@ -28,7 +28,7 @@ typedef NSDictionary<NSString*, RKMapping*> *ESMappingMap;
 -(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings filepath:(NSString*)filepath;
 -(instancetype)initWithRoutes:(ESRouteMap)routes mappings:(ESMappingMap)mappings fromMainBundle:(NSString*)filename;
 
--(RKResponseDescriptor*)descriptorForName:(NSString*)name;
+-(RKResponseDescriptor*)createDescriptorNamed:(NSString*)name;
 
 @end
 

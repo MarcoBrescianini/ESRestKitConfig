@@ -50,24 +50,24 @@
 //-------------------------------------------------------------------------------------------
 #pragma mark - Business Logic
 
-- (RKMapping *)mappingWithName:(NSString *)name
+- (RKMapping *)createMappingNamed:(NSString *)name
 {
     NSDictionary * mappingDictionary = self.config[name];
 
     RKMapping * mapping;
-    if(mappingDictionary[@"Entity"])
-        mapping = [self buildEntityMappingFrom:mappingDictionary];
-    else if(mappingDictionary[@"Object"])
-        mapping = [self buildObjectMappingFrom:mappingDictionary];
-    else if(mappingDictionary[@"Dynamic"])
-        mapping = [self buildDynamicMappingFrom:mappingDictionary];
+    if (mappingDictionary[@"Entity"])
+        mapping = [self createEntityMappingFrom:mappingDictionary];
+    else if (mappingDictionary[@"Object"])
+        mapping = [self createObjectMappingFrom:mappingDictionary];
+    else if (mappingDictionary[@"Dynamic"])
+        mapping = [self createDynamicMappingFrom:mappingDictionary];
     else
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping Target type not specified should be either Object, Entity or Dynamic" userInfo:nil];
 
     return mapping;
 }
 
-- (RKMapping *)buildDynamicMappingFrom:(NSDictionary *)dictionary
+- (RKMapping *)createDynamicMappingFrom:(NSDictionary *)dictionary
 {
     RKDynamicMapping * mapping = [RKDynamicMapping new];
 
@@ -78,7 +78,7 @@
 
 - (void)addMatchersToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf
 {
-    NSArray * matchersConf =  conf[@"Matchers"];
+    NSArray * matchersConf = conf[@"Matchers"];
 
     for (NSDictionary * matcherConf in matchersConf)
     {
@@ -91,9 +91,9 @@
     NSString * keyPath = conf[@"keyPath"];
     id expectedValue = conf[@"expectedValue"];
     NSString * mappingRef = conf[@"mapping_ref"];
-    RKMapping * objectMapping = [self mappingWithName:mappingRef];
+    RKMapping * objectMapping = [self createMappingNamed:mappingRef];
 
-    if([objectMapping isKindOfClass:[RKObjectMapping class]])
+    if ([objectMapping isKindOfClass:[RKObjectMapping class]])
     {
         RKObjectMappingMatcher * matcher = [RKObjectMappingMatcher matcherWithKeyPath:keyPath expectedValue:expectedValue objectMapping:(RKObjectMapping *) objectMapping];
 
@@ -102,7 +102,7 @@
 
 }
 
-- (RKObjectMapping *)buildObjectMappingFrom:(NSDictionary *)dictionary
+- (RKObjectMapping *)createObjectMappingFrom:(NSDictionary *)dictionary
 {
     RKObjectMapping * mapping = [RKObjectMapping mappingForClass:NSClassFromString(dictionary[@"Object"])];
     [self addAttributesToMapping:mapping fromConf:dictionary];
@@ -110,7 +110,7 @@
     return mapping;
 }
 
-- (RKEntityMapping *)buildEntityMappingFrom:(NSDictionary *)mappingDictionary
+- (RKEntityMapping *)createEntityMappingFrom:(NSDictionary *)mappingDictionary
 {
     RKEntityMapping * mapping = [self createEntityMappingFromConf:mappingDictionary];
 
@@ -187,33 +187,38 @@
 
     for (NSDictionary * relationshipConf in relationships)
     {
-        NSString * sourceKeyPath = relationshipConf[@"source"];
-        NSString * destinationKeyPath = relationshipConf[@"destination"];
-        RKMapping * mappingForRelationship;
+        RKRelationshipMapping * relationshipMapping = [self createRelationshipMappingFrom:relationshipConf];
 
-        if(relationshipConf[@"mapping"])
-        {
-            mappingForRelationship = [self buildEntityMappingFrom:relationshipConf[@"mapping"]];
-        } else
-            if(relationshipConf[@"mapping_ref"])
-            {
-                mappingForRelationship = [self mappingWithName:relationshipConf[@"mapping_ref"]];
-            } else
-            {
-                @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping for relationship not found" userInfo:nil];
-            }
-
-
-        RKRelationshipMapping * relationshipMapping = [RKRelationshipMapping relationshipMappingFromKeyPath:sourceKeyPath toKeyPath:destinationKeyPath withMapping:mappingForRelationship];
         [mapping addPropertyMapping:relationshipMapping];
     }
+}
+
+- (RKRelationshipMapping *)createRelationshipMappingFrom:(NSDictionary *)conf
+{
+    NSString * sourceKeyPath = conf[@"source"];
+    NSString * destinationKeyPath = conf[@"destination"];
+    RKMapping * mappingForRelationship;
+
+    if (conf[@"mapping"])
+    {
+        mappingForRelationship = [self createEntityMappingFrom:conf[@"mapping"]];
+    } else if (conf[@"mapping_ref"])
+    {
+        mappingForRelationship = [self createMappingNamed:conf[@"mapping_ref"]];
+    } else
+    {
+        @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping for relationship not found" userInfo:nil];
+    }
+
+    RKRelationshipMapping * relationshipMapping = [RKRelationshipMapping relationshipMappingFromKeyPath:sourceKeyPath toKeyPath:destinationKeyPath withMapping:mappingForRelationship];
+    return relationshipMapping;
 }
 
 - (void)addConnectionsToMapping:(RKEntityMapping *)mapping conf:(NSDictionary *)conf
 {
     NSArray * connections = conf[@"Connections"];
 
-    for (NSDictionary *connection in connections)
+    for (NSDictionary * connection in connections)
     {
         NSString * relationshipName = connection[@"relationshipName"];
         NSString * sourceAttr = connection[@"source"];
@@ -229,7 +234,7 @@
     NSMutableDictionary<NSString *, RKMapping *> * mappings = [[NSMutableDictionary alloc] initWithCapacity:self.config.count];
 
     [self.config enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL * _Nonnull stop) {
-        RKMapping * mapping = [self mappingWithName:key];
+        RKMapping * mapping = [self createMappingNamed:key];
 
         [mappings setValue:mapping forKey:key];
     }];

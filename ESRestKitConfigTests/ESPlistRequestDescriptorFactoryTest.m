@@ -142,7 +142,7 @@
     };
     factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
 
-    XCTAssertThrowsSpecificNamed([factory descriptorForName:@"baz"], NSException, @"ConfigurationException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"baz"], NSException, @"ConfigurationException");
 }
 
 
@@ -158,7 +158,7 @@
     };
     factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
 
-    XCTAssertThrowsSpecificNamed([factory descriptorForName:@"desc"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
 }
 
 
@@ -174,7 +174,7 @@
     };
     factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
 
-    XCTAssertThrowsSpecificNamed([factory descriptorForName:@"desc"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
 }
 
 
@@ -191,7 +191,7 @@
 
     factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
 
-    XCTAssertThrowsSpecificNamed([factory descriptorForName:@"desc"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
 }
 
 
@@ -209,7 +209,7 @@
     OCMExpect([fooMappingMock inverseMapping]).andReturn(inversedFooMapping);
     factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
 
-    RKRequestDescriptor * descriptor = [factory descriptorForName:@"desc"];
+    RKRequestDescriptor * descriptor = [factory createDescriptorNamed:@"desc"];
     RKRequestDescriptor * expectedDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:inversedFooMapping
                                                                                      objectClass:[ESFoo class]
                                                                                      rootKeyPath:@"keypath"

@@ -12,6 +12,8 @@
 
 @protocol ESMappingFactory <NSObject>
 
--(NSDictionary<NSString*, RKMapping*>*)createMappings;
+- (RKMapping *)createMappingNamed:(NSString *)name;
+- (NSDictionary<NSString *, RKMapping *> *)createMappings;
+
 
 @end

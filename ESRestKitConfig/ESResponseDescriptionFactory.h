@@ -12,6 +12,7 @@
 
 @protocol ESResponseDescriptionFactory <NSObject>
 
--(NSArray<RKResponseDescriptor*>*)createResponseDescriptors;
+- (NSArray<RKResponseDescriptor *> *)createResponseDescriptors;
+- (RKResponseDescriptor *)createDescriptorNamed:(NSString *)name;
 
 @end
