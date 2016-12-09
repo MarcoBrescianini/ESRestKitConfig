@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.module_name = 'ESRestKitConfig'
 
-  s.source_files = 'ESRestKitConfig/*.{h,m}'
+  s.source_files = 'ESRestKitConfig/**/*.{h,m}'
   s.dependency 'RestKit'
 
   s.frameworks = 'SystemConfiguration', 'MobileCoreServices'
