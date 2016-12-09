@@ -74,6 +74,11 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 {
     NSDictionary * mappingDictionary = self.config[name];
 
+    return [self createMappingFromDictionary:mappingDictionary];
+}
+
+- (RKMapping *)createMappingFromDictionary:(NSDictionary *)mappingDictionary
+{
     RKMapping * mapping;
     if (mappingDictionary[kEntityKey])
         mapping = [self createEntityMappingFrom:mappingDictionary];
@@ -164,7 +169,7 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
     RKMapping * mappingForRelationship;
 
     if (conf[kMappingKey])
-        mappingForRelationship = [self createEntityMappingFrom:conf[kMappingKey]];
+        mappingForRelationship = [self createMappingFromDictionary:conf[kMappingKey]];
     else if (conf[kMappingRefKey])
         mappingForRelationship = [self createMappingNamed:conf[kMappingRefKey]];
     else
