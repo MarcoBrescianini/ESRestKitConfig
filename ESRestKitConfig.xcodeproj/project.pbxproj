@@ -30,7 +30,9 @@
 		C922728781292BC9C61660E9 /* ESPlistRoutesFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C92270E9033D0EF58B99345C /* ESPlistRoutesFactory.m */; };
 		C92272B3DB7F2A6928BB0911 /* ESDictionaryResponseDescriptorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C9227A5C3BFA95B9FFB286DB /* ESDictionaryResponseDescriptorFactory.m */; };
 		C922735AC2C0ECA680E3C392 /* ESPlistObjectManagerFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C9227C4CD8EE90614936CD84 /* ESPlistObjectManagerFactoryTest.m */; };
+		C922747CC32008045CD004E8 /* RKObjectManager+ESFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C92274485FAF7C9E78280543 /* RKObjectManager+ESFactory.h */; };
 		C9227505ADF9F16A4B0A4601 /* ESDictionaryRequestDescriptorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C92272A2198D50C5C36A90A8 /* ESDictionaryRequestDescriptorFactory.h */; };
+		C92275657E5374F3A8B4EE64 /* RKObjectManager+ESFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C92274F6FD43316F3E79B6BF /* RKObjectManager+ESFactory.m */; };
 		C922758CAE7DD79EC8F20D54 /* ESResponseDescriptorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C92274127E64E29DF58F4C15 /* ESResponseDescriptorFactory.h */; };
 		C92276038F4D1E88D9405C0A /* ESMappingFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C92274B07E3AB54A5516C42E /* ESMappingFactory.h */; };
 		C922774E5A269F8664A11E92 /* ESConfigFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = C922705665A972D538B69476 /* ESConfigFixtures.m */; };
@@ -107,9 +109,11 @@
 		C9227363E439E35C91B80F38 /* ESPlistRoutesFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPlistRoutesFactory.h; sourceTree = "<group>"; };
 		C92273A2B55689B9BACA7BC9 /* ESConfigFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESConfigFixtures.h; sourceTree = "<group>"; };
 		C92274127E64E29DF58F4C15 /* ESResponseDescriptorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESResponseDescriptorFactory.h; sourceTree = "<group>"; };
+		C92274485FAF7C9E78280543 /* RKObjectManager+ESFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKObjectManager+ESFactory.h"; sourceTree = "<group>"; };
 		C92274A460124E24DAB8B715 /* ESDictionaryRoutesFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDictionaryRoutesFactory.h; sourceTree = "<group>"; };
 		C92274B07E3AB54A5516C42E /* ESMappingFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESMappingFactory.h; sourceTree = "<group>"; };
 		C92274BD228AB9CDB186FA0C /* ESRestKitConfig.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = ESRestKitConfig.podspec; sourceTree = "<group>"; };
+		C92274F6FD43316F3E79B6BF /* RKObjectManager+ESFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKObjectManager+ESFactory.m"; sourceTree = "<group>"; };
 		C922753627B2FF9AA3CA14F5 /* ESPlistObjectManagerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlistObjectManagerFactory.m; sourceTree = "<group>"; };
 		C922753A8362478578271888 /* ESDictionaryRequestDescriptorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDictionaryRequestDescriptorFactory.m; sourceTree = "<group>"; };
 		C9227576132A5B93C0143D48 /* ESDictionaryMappingFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDictionaryMappingFactory.m; sourceTree = "<group>"; };
@@ -270,6 +274,8 @@
 				C9227E1ED6AE5A9EE77C2BDA /* ESPlistObjectManagerFactory.h */,
 				C922735ACA489FFFEA49DF29 /* ESDictionaryObjectManagerFactory.m */,
 				C922777B2587E204470DD048 /* ESDictionaryObjectManagerFactory.h */,
+				C92274F6FD43316F3E79B6BF /* RKObjectManager+ESFactory.m */,
+				C92274485FAF7C9E78280543 /* RKObjectManager+ESFactory.h */,
 			);
 			path = ObjectManager;
 			sourceTree = "<group>";
@@ -330,6 +336,7 @@
 				C9227505ADF9F16A4B0A4601 /* ESDictionaryRequestDescriptorFactory.h in Headers */,
 				C9227CF9EEA32E15A6F52E02 /* ESDictionaryResponseDescriptorFactory.h in Headers */,
 				C9227F365E8E6B38A7285960 /* ESDictionaryObjectManagerFactory.h in Headers */,
+				C922747CC32008045CD004E8 /* RKObjectManager+ESFactory.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +529,7 @@
 				C9227A5EBB78B13BE075D52A /* ESDictionaryRequestDescriptorFactory.m in Sources */,
 				C92272B3DB7F2A6928BB0911 /* ESDictionaryResponseDescriptorFactory.m in Sources */,
 				C9227D1017393FEDB93FF1F6 /* ESDictionaryObjectManagerFactory.m in Sources */,
+				C92275657E5374F3A8B4EE64 /* RKObjectManager+ESFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
