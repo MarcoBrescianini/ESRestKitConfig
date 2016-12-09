@@ -6,6 +6,10 @@
 #import <Foundation/Foundation.h>
 #import "ESObjectManagerFactory.h"
 
+@class RKManagedObjectStore;
+@class RKEntityMapping;
+@class NSManagedObjectModel;
+
 @protocol ESMappingFactory;
 @protocol ESRoutesFactory;
 @protocol ESResponseDescriptorFactory;

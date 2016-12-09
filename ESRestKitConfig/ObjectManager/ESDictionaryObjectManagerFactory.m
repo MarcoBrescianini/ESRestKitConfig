@@ -18,6 +18,28 @@
 #import "ESRequestDescriptorFactory.h"
 
 
+static NSString * const kBaseURLKey = @"baseURL";
+
+static NSString * const kManagedStoreKey = @"managedStore";
+
+static NSString * const kModelNameKey = @"modelName";
+
+static NSString * const kInMemoryKey = @"inMemory";
+
+static NSString * const kSQLiteNameKey = @"sqliteFilename";
+
+static NSString * const kCacheKey = @"cache";
+
+static NSString * const kCacheMemoryValue = @"memory";
+
+static NSString * const kRoutesKey = @"routes";
+
+static NSString * const kMappingsKey = @"mappings";
+
+static NSString * const kResponsesKey = @"responses";
+
+static NSString * const kRequestsKey = @"requests";
+
 @implementation ESDictionaryObjectManagerFactory
 
 - (instancetype)initWithConfig:(NSDictionary *)config
@@ -35,7 +57,7 @@
 
 - (RKObjectManager *)createObjectManager
 {
-    NSString * urlString = self.config[@"baseURL"];
+    NSString * urlString = self.config[kBaseURLKey];
 
     if(!urlString || urlString.length == 0)
         @throw [NSException exceptionWithName:@"PlistMalformedException"
@@ -45,7 +67,7 @@
     RKObjectManager * manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:urlString]];
 
 
-    NSDictionary * storeConfig = self.config[@"managedStore"];
+    NSDictionary * storeConfig = self.config[kManagedStoreKey];
 
     if(storeConfig && storeConfig.count > 0)
     {
@@ -71,7 +93,7 @@
 
 - (NSManagedObjectModel *)loadManagedObjectModel:(NSDictionary *)storeConfig
 {
-    NSString * modelName = storeConfig[@"modelName"];
+    NSString * modelName = storeConfig[kModelNameKey];
 
     NSArray<NSBundle *> * bundles = [NSBundle allBundles];
 
@@ -106,14 +128,14 @@
 {
     [store createPersistentStoreCoordinator];
 
-    if([storeConfig[@"inMemory"] boolValue])
+    if([storeConfig[kInMemoryKey] boolValue])
     {
         NSError * error;
         NSPersistentStore * persistentStore = [store addInMemoryPersistentStore:&error];
         NSAssert(persistentStore, @"Failed to add persistent store with error: %@", error);
-    } else if(storeConfig[@"sqliteFilename"])
+    } else if(storeConfig[kSQLiteNameKey])
     {
-        NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:storeConfig[@"sqliteFilename"]];
+        NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:storeConfig[kSQLiteNameKey]];
 
         NSError *error;
         NSPersistentStore *persistentStore = [store addSQLitePersistentStoreAtPath:storePath fromSeedDatabaseAtPath:nil withConfiguration:nil options:nil error:&error];
@@ -130,7 +152,7 @@
 
 - (void)setupStoreCache:(NSDictionary *)storeConfig store:(RKManagedObjectStore *)store
 {
-    if([storeConfig[@"cache"] isEqualToString:@"memory"])
+    if([storeConfig[kCacheKey] isEqualToString:kCacheMemoryValue])
     {
         store.managedObjectCache = [[RKInMemoryManagedObjectCache alloc] initWithManagedObjectContext:store.persistentStoreManagedObjectContext];
     }
@@ -160,7 +182,7 @@
 {
     id <ESRoutesFactory> routesFactory;
 
-    id routes = self.config[@"routes"];
+    id routes = self.config[kRoutesKey];
     if(routes)
     {
         if([routes isKindOfClass:[NSDictionary class]])
@@ -196,7 +218,7 @@
     id<ESMappingFactory> mappingFactory = nil;
     RKManagedObjectStore * store = manager.managedObjectStore;
 
-    id mappings = self.config[@"mappings"];
+    id mappings = self.config[kMappingsKey];
 
     if(mappings)
     {
@@ -234,7 +256,7 @@
 {
     id<ESResponseDescriptorFactory> responseFactory = nil;
 
-    id response = self.config[@"responses"];
+    id response = self.config[kResponsesKey];
     if(response)
     {
         if ([response isKindOfClass:[NSDictionary class]])
@@ -270,7 +292,7 @@
 {
     id<ESRequestDescriptorFactory> requestFactory = nil;
 
-    id response = self.config[@"requests"];
+    id response = self.config[kRequestsKey];
 
     @try
     {
