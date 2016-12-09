@@ -1,41 +1,18 @@
 //
-// Created by Marco Brescianini on 16/11/15.
-// Copyright (c) 2015 Engineering Solutions. All rights reserved.
+// Created by Engineering Solutions on 09/12/2016.
+// Copyright (c) 2016 Engineering Solutions. All rights reserved.
 //
 
 #import <RestKit/RestKit.h>
 
-#import "ESPlistRequestDescriptorFactory.h"
+#import "ESDictionaryRequestDescriptorFactory.h"
 
+static NSString * const kMethodKey = @"method";
+static NSString * const kMappingKey = @"mapping";
+static NSString * const kObjectKey = @"object";
+static NSString * const kKeypathKey = @"keypath";
 
-@implementation ESPlistRequestDescriptorFactory
-
-//-------------------------------------------------------------------------------------------
-#pragma mark - Inits
-
-
-- (instancetype)init
-{
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"Wrong designated initializer"
-                                 userInfo:nil];
-}
-
-
-- (instancetype)initWithMappings:(ESMappingMap)mappings fromMainBundle:(NSString *)filename
-{
-    NSString * path = [[NSBundle mainBundle] pathForResource:filename ofType:@"plist"];
-
-    if(!path)
-        @throw [NSException exceptionWithName:@"PlistNotFoundException" reason:@"Plist file not found" userInfo:nil];
-
-    return [self initWithMappings:mappings filepath:path];
-}
-
-- (instancetype)initWithMappings:(ESMappingMap)mappings filepath:(NSString *)filepath
-{
-    return [self initWithMappings:mappings config:[NSDictionary dictionaryWithContentsOfFile:filepath] ];
-}
+@implementation ESDictionaryRequestDescriptorFactory
 
 - (instancetype)initWithMappings:(ESMappingMap)mappings config:(NSDictionary *)config
 {
@@ -53,10 +30,7 @@
     return self;
 }
 
-//-------------------------------------------------------------------------------------------
-#pragma mark - Business Logic
-
-- (NSArray<RKRequestDescriptor *> *)createRequestDescriptors
+- (NSArray<RKRequestDescriptor *> *)createAllDescriptors
 {
     NSMutableArray<RKRequestDescriptor *>* descriptors = [[NSMutableArray alloc]
             initWithCapacity:self.config.count];
@@ -72,7 +46,7 @@
 {
     NSDictionary * descriptorConf = self.config[name];
 
-    if(!descriptorConf)
+    if(!descriptorConf || descriptorConf.count == 0)
         @throw [NSException exceptionWithName:@"ConfigurationException"
                                        reason:[NSString stringWithFormat:@"Configuration Not Found for Descriptor named: %@", name]
                                      userInfo:nil];
@@ -80,7 +54,7 @@
     RKRequestMethod method = [self readRequestMethod:descriptorConf];
     RKMapping * mapping = [self readInversedMapping:descriptorConf];
     Class objectClass = [self readObjectClass:descriptorConf];
-    NSString * keypath = descriptorConf[@"keypath"];
+    NSString * keypath = descriptorConf[kKeypathKey];
 
     RKRequestDescriptor * requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:mapping
                                                                                     objectClass:objectClass
@@ -89,14 +63,13 @@
     return requestDescriptor;
 }
 
-
 - (RKRequestMethod)readRequestMethod:(NSDictionary *)descriptorConf
 {
-    NSString * methodString = descriptorConf[@"method"];
+    NSString * methodString = descriptorConf[kMethodKey];
     RKRequestMethod method;
+
     @try
     {
-
         method = RKRequestMethodFromString(methodString);
     }@catch(NSException *)
     {
@@ -109,21 +82,17 @@
 
 -(RKMapping *)readInversedMapping:(NSDictionary*)conf
 {
-    NSString * mappingName = conf[@"mapping"];
+    NSString * mappingName = conf[kMappingKey];
     RKMapping * mapping = self.mappings[mappingName];
     RKMapping * inversedMapping;
 
     if(mapping == nil)
-    {
         @throw [NSException exceptionWithName:@"PlistMalformedException"
                                        reason:[NSString stringWithFormat:@"Mapping Not Found %@", mappingName]
                                      userInfo:nil];
-    }
 
     if([mapping isKindOfClass:[RKObjectMapping class]])
-    {
         inversedMapping = [(RKObjectMapping *)mapping inverseMapping];
-    }
 
     if(!inversedMapping)
         @throw [NSException exceptionWithName:@"PlistMalformedException"
@@ -135,17 +104,14 @@
 
 -(Class)readObjectClass:(NSDictionary*)conf
 {
-    NSString * className = conf[@"object"];
+    NSString * className = conf[kObjectKey];
     Class objectClass = NSClassFromString(className);
 
     if(objectClass == NULL)
-    {
         @throw [NSException exceptionWithName:@"PlistMalformedException"
                                        reason:[NSString stringWithFormat:@"Class not found with name: %@",className]
                                      userInfo:nil];
-    }
 
     return objectClass;
 }
-
 @end

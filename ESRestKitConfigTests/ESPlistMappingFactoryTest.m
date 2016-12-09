@@ -167,15 +167,11 @@ static RKManagedObjectStore *managedObjectStore;
 //-------------------------------------------------------------------------------------------
 #pragma mark - Init Tests
 
-- (void)testInitNilStoreThrows
-{
-    XCTAssertThrows([[ESPlistMappingFactory alloc] initWithDictionary:@{} store:nil]);
-}
 
 #warning Skipped Test
 - (void)_testInitFromMainBundle
 {
-    factory = [[ESPlistMappingFactory alloc] initFromMainBundle:@"Mapping" store:managedObjectStore];
+    factory = [[ESPlistMappingFactory alloc] initWithFilename:@"Mapping" store:managedObjectStore];
 
     XCTAssertNotNil(factory);
     XCTAssertNotNil(factory.config);
@@ -190,7 +186,7 @@ static RKManagedObjectStore *managedObjectStore;
         NSDictionary *config = [ESConfigFixtures mappingConfigDictionary];
         filepath = [ESConfigFixtures writeMappingFile:config];
 
-        factory = [[ESPlistMappingFactory alloc] initWithPlistFile:filepath store:managedObjectStore];
+        factory = [[ESPlistMappingFactory alloc] initWithFilepath:filepath store:managedObjectStore];
 
         XCTAssertNotNil(factory);
         XCTAssertNotNil(factory.config);
@@ -220,7 +216,7 @@ static RKManagedObjectStore *managedObjectStore;
 
 - (void)testInitWithNotExistingFilePathThrows
 {
-    XCTAssertThrows([[ESPlistMappingFactory alloc] initFromMainBundle:@"Not existing" store:managedObjectStore]);
+    XCTAssertThrows([[ESPlistMappingFactory alloc] initWithFilename:@"Not existing" store:managedObjectStore]);
 }
 
 - (void)testInitWithNilDictionaryThrows
@@ -230,8 +226,6 @@ static RKManagedObjectStore *managedObjectStore;
 
 //-------------------------------------------------------------------------------------------
 #pragma mark - Logic Tests
-
-//TODO: Gestire le relazioni. Ossia i mapping referenziati nei mapping di relazione non devono essere ricorsivi
 
 - (void)testMappingWithName
 {
@@ -255,8 +249,6 @@ static RKManagedObjectStore *managedObjectStore;
 
     //Then
     [self assertEntityMapping:mapping equalsExpectedConfig:conf[@"foo"]];
-
-    //TODO: TEST VALUE TRANSFORMERS ADDED PROPERLY!!!
 }
 
 - (void)testMissingEntityName
@@ -313,18 +305,21 @@ static RKManagedObjectStore *managedObjectStore;
     XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 }
 
-- (void)testIdentificationAttributesKeyPathNotArray
+- (void)testIdentificationAttributes_identifierAsString
 {
     NSDictionary *conf = @{
             @"foo" : @{
-                    @"Identification" : @"string",
+                    @"Identification" : @"identifier",
+                    @"Modification"   : fooModificationAttr,
                     @"Attributes"     : fooAttributes,
                     @"Entity"         : fooEntityName
             }
     };
     factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
-    XCTAssertThrowsSpecificNamed([factory createMappingNamed:@"foo"], NSException, @"PlistMalformedException");
 
+    RKEntityMapping * fooMapping = [factory createMappingNamed:@"foo"];
+
+    [self assertEntityMapping:fooMapping equalsExpectedConfig:conf[@"foo"]];
 }
 
 - (void)testModificationAttributeKeyPathNotString
@@ -478,6 +473,36 @@ static RKManagedObjectStore *managedObjectStore;
     }];
 }
 
+- (void)testCreateAllMappings
+{
+    NSDictionary *conf = @{
+            @"foo" : @{
+                    @"Identification" : fooIdentificationAttrs,
+                    @"Modification"   : fooModificationAttr,
+                    @"Entity"         : fooEntityName,
+                    @"Attributes"     : fooAttributes
+            },
+            @"bar" : @{
+                    @"Identification" : barIdentificationAttrs,
+                    @"Modification"   : barModificationAttr,
+                    @"Entity"         : barEntityName,
+                    @"Attributes"     : barAttributes
+            }
+    };
+
+
+    factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
+
+
+    //When
+    NSArray<RKMapping *> * mappings = [factory createAllMappings];
+
+    XCTAssertNotNil(mappings);
+    XCTAssertTrue(mappings.count > 0);
+
+    [self assertEntityMapping:mappings[0] equalsExpectedConfig:conf[@"foo"]];
+    [self assertEntityMapping:mappings[1] equalsExpectedConfig:conf[@"bar"]];
+}
 
 -(void)testObjectMapping
 {
@@ -612,7 +637,8 @@ static RKManagedObjectStore *managedObjectStore;
 {
     [self assertEntityNameInMapping:mapping equals:config[@"Entity"]];
     [self assertAttributeFromMapping:mapping equalsAttributes:config[@"Attributes"]];
-    [self assertIdentificationAttributesFromMapping:mapping equals:config[@"Identification"]];
+    id identifiers = config[@"Identification"];
+    [self assertIdentificationAttributesFromMapping:mapping equals:[identifiers isKindOfClass:[NSArray class]] ? identifiers : @[identifiers]];
     [self assertModificationAttrForMapping:mapping equals:config[@"Modification"]];
 }
 

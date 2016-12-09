@@ -12,8 +12,7 @@
 
 #import "ESPlistRoutesFactory.h"
 #import "ESConfigFixtures.h"
-
-#import "RKRoute+ESAuthRequirement.h"
+#import "ESDictionaryRoutesFactory.h"
 
 @interface ESPlistRoutesFactoryTest : XCTestCase
 {
@@ -30,19 +29,19 @@
 #warning Skipped Test
 - (void)_testInitWithFileNameFromMainBundle
 {
-    factory = [[ESPlistRoutesFactory alloc] initFromMainBundle:@"Routes"];
+    factory = [[ESPlistRoutesFactory alloc] initWithFilename:@"Routes"];
 
     XCTAssertNotNil(factory);
     XCTAssertNotNil(factory.config);
 }
 
-- (void)testInitFilenameFromBundleNotFoundThrows
+- (void)testInitWithFilename_fileNotFound_Throws
 {
-    XCTAssertThrows([[ESPlistRoutesFactory alloc] initFromMainBundle:@"Not Existing"]);
+    XCTAssertThrows([[ESPlistRoutesFactory alloc] initWithFilename:@"Not Existing"]);
 }
 
 
-- (void)testInitWithPlistFilepath
+- (void)testInitWithFilepath
 {
     NSString *filepath = nil;
 
@@ -53,7 +52,7 @@
 
         NSAssert(filepath, @"Couldn't create file");
 
-        factory = [[ESPlistRoutesFactory alloc] initWithPlistFilePath:filepath];
+        factory = [[ESPlistRoutesFactory alloc] initWithFilepath:filepath];
 
         XCTAssertNotNil(factory);
         XCTAssertNotNil(factory.config);
@@ -168,6 +167,31 @@
     }];
 }
 
+- (void)testCreateAllRoutes
+{
+    NSDictionary *dictionary = @{
+            @"get_something"  : @{
+                    @"path"   : @"something/",
+                    @"method" : @"GET"
+
+            },
+            @"post_something" : @{
+                    @"path"   : @"something/",
+                    @"method" : @"POST"
+            }
+    };
+    factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
+
+    NSArray * routes = [factory createAllRoutes];
+
+    XCTAssertEqual(routes.count, 2);
+
+    RKRoute * first = routes[0];
+    [self assertRoute:first hasName:@"get_something" pattern:@"something/" forMethod:@"GET"];
+    RKRoute * second = routes[1];
+    [self assertRoute:second hasName:@"post_something" pattern:@"something/" forMethod:@"POST"];
+}
+
 
 -(void)testCreateRelationshipRoute
 {
@@ -232,7 +256,7 @@
 }
 
 
--(void)testObjectRoute_missingClassThrows
+-(void)testObjectRoute_missingClass_Throws
 {
     NSString *method = @"GET";
     NSString *pattern = @"path/";
@@ -249,32 +273,6 @@
     factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
 
     XCTAssertThrowsSpecificNamed([factory createRouteNamed:name],NSException ,@"PlistMalformedException");
-}
-
-
--(void)testRouteWithOAuthRequirement
-{
-    NSString *method = @"GET";
-    NSString *pattern = @"path/";
-    NSString *name = @"route_name";
-    NSNumber *requiresAuth = @YES;
-    NSString *authScope = @"scope";
-
-    NSDictionary *dictionary = @{
-            name : @{
-                    @"path"   : pattern,
-                    @"method" : method,
-                    @"authRequired" : requiresAuth,
-                    @"authScope" : authScope
-            }
-    };
-    factory = [[ESPlistRoutesFactory alloc] initWithDictionary:dictionary];
-
-    RKRoute *actual = [factory createRouteNamed:name];
-
-    [self assertRoute:actual hasName:name pattern:pattern forMethod:method];
-    XCTAssertTrue(actual.isAuthRequired);
-    XCTAssertEqualObjects(actual.authScope, authScope);
 }
 
 //-------------------------------------------------------------------------------------------

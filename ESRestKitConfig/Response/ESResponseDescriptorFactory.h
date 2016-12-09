@@ -1,5 +1,5 @@
 //
-//  ESResponseDescriptionFactory.h
+//  ESResponseDescriptorFactory.h
 //  Engineering Solutions
 //
 //  Created by Marco Brescianini on 16/10/15.
@@ -10,9 +10,13 @@
 
 @class RKResponseDescriptor;
 
-@protocol ESResponseDescriptionFactory <NSObject>
+NS_ASSUME_NONNULL_BEGIN
 
-- (NSArray<RKResponseDescriptor *> *)createResponseDescriptors;
+@protocol ESResponseDescriptorFactory <NSObject>
+
+- (NSArray<RKResponseDescriptor *> *)createAllDescriptors;
 - (RKResponseDescriptor *)createDescriptorNamed:(NSString *)name;
 
 @end
+
+NS_ASSUME_NONNULL_END

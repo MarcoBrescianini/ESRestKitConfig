@@ -7,9 +7,13 @@
 
 @class RKRequestDescriptor;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ESRequestDescriptorFactory <NSObject>
 
-- (NSArray<RKRequestDescriptor *> *)createRequestDescriptors;
+- (NSArray<RKRequestDescriptor *> *)createAllDescriptors;
 - (RKRequestDescriptor *)createDescriptorNamed:(NSString *)name;
 
 @end
+
+NS_ASSUME_NONNULL_END

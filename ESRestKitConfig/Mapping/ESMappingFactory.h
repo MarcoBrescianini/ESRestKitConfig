@@ -10,10 +10,14 @@
 
 @class RKMapping;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ESMappingFactory <NSObject>
 
 - (RKMapping *)createMappingNamed:(NSString *)name;
+- (NSArray<RKMapping*> * )createAllMappings;
 - (NSDictionary<NSString *, RKMapping *> *)createMappings;
 
-
 @end
+
+NS_ASSUME_NONNULL_END

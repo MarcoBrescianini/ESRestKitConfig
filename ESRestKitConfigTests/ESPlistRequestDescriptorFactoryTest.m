@@ -14,6 +14,7 @@
 #import "ESConfigFixtures.h"
 #import "ESFoo.h"
 #import "ESBar.h"
+#import "ESDictionaryRequestDescriptorFactory.h"
 
 @interface ESPlistRequestDescriptorFactoryTest : XCTestCase
 {
@@ -55,10 +56,6 @@
 //-------------------------------------------------------------------------------------------
 #pragma mark - Initialization Tests
 
-- (void)testInitThrows
-{
-    XCTAssertThrows([ESPlistRequestDescriptorFactory new]);
-}
 
 - (void)testInitWithEmptyMappingThrows
 {
@@ -114,7 +111,7 @@
 #warning Skipped Test
 - (void)_testCanInitFromMainBundle
 {
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap fromMainBundle:@"Request"];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap filename:@"Request"];
 
     [self assertFactoryInitialized];
 }
@@ -244,7 +241,7 @@
 
     factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
 
-    NSArray<RKRequestDescriptor *>* descriptors = [factory createRequestDescriptors];
+    NSArray<RKRequestDescriptor *>* descriptors = [factory createAllDescriptors];
 
     XCTAssertNotNil(descriptors);
     XCTAssertEqual(descriptors.count, 2);
