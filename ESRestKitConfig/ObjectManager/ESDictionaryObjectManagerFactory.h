@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSDictionary * config;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 - (instancetype)initWithConfig:(NSDictionary * )config NS_DESIGNATED_INITIALIZER;
 
 - (RKManagedObjectStore *)createManagedObjectStore:(NSDictionary *)storeConfig;
@@ -34,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (id <ESMappingFactory>)createMappingsFactory:(RKObjectManager *)manager;
 - (id <ESResponseDescriptorFactory>)createResponseDescriptorFactory:(NSDictionary<NSString *, RKEntityMapping *> *)mappings;
 - (id <ESRequestDescriptorFactory>)createRequestDescriptorFactory:(NSDictionary<NSString *, RKEntityMapping *> *)mappings;
+
++ (instancetype)new NS_UNAVAILABLE;
 
 @end
 

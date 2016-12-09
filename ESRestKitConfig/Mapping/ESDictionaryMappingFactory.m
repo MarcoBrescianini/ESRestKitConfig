@@ -139,12 +139,10 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
     NSDictionary * attributesDictionary = conf[kAttributesKey];
 
     if (![attributesDictionary isKindOfClass:[NSDictionary class]])
-        @throw [NSException exceptionWithName:@"PlistMalformedException" reason:[NSString stringWithFormat:@"Attributes configuration must be a dictionary"] userInfo:nil];
+        @throw [NSException exceptionWithName:@"PlistMalformedException" reason:[NSString stringWithFormat:@"Attributes configuration must be a dictionary, an empty dictionary is allowed"] userInfo:nil];
 
-    if (attributesDictionary.count <= 0)
-        @throw [NSException exceptionWithName:@"PlistMalformedException" reason:[NSString stringWithFormat:@"Missing attributes for mapping"] userInfo:nil];
-
-    [mapping addAttributeMappingsFromDictionary:attributesDictionary];
+    if (attributesDictionary.count > 0)
+        [mapping addAttributeMappingsFromDictionary:attributesDictionary];
 }
 
 - (void)addRelationshipsToMapping:(RKObjectMapping *)mapping conf:(NSDictionary *)conf

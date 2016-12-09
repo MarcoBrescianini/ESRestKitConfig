@@ -207,7 +207,7 @@ static NSString * const kRequestsKey = @"requests";
     return routesFactory;
 }
 
-- (NSDictionary<NSString *, RKEntityMapping *> *)createMappings:(RKObjectManager *)manager
+- (NSDictionary<NSString *, RKMapping *> *)createMappings:(RKObjectManager *)manager
 {
     id <ESMappingFactory> mappingFactory = [self createMappingsFactory:manager];
     return [mappingFactory createMappings];
