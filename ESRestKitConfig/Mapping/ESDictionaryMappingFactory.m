@@ -222,23 +222,32 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 
 - (void)addIdentificationAttributesTo:(RKEntityMapping *)mapping conf:(NSDictionary *)conf
 {
-    id idAttr = conf[kIdentificationKey];
+    id identificationAttribute = conf[kIdentificationKey];
 
-    if([idAttr isKindOfClass:[NSString class]])
+    if(!identificationAttribute)
+        return;
+
+    if([identificationAttribute isKindOfClass:[NSString class]])
     {
-        idAttr = @[idAttr];
+        if([identificationAttribute isEqualToString:@""])
+            return;
+
+        identificationAttribute = @[identificationAttribute];
     }
 
-    if (![idAttr isKindOfClass:[NSArray class]])
+    if (![identificationAttribute isKindOfClass:[NSArray class]])
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:[NSString stringWithFormat:@"Identification attributes must be provided in array"] userInfo:nil];
 
-    if ([idAttr count] > 0)
-        [mapping setIdentificationAttributes:idAttr];
+    if ([identificationAttribute count] > 0)
+        [mapping setIdentificationAttributes:identificationAttribute];
 }
 
 - (void)addModificationAttributeTo:(RKEntityMapping *)mapping conf:(NSDictionary *)conf
 {
     id modificationAttribute = conf[kModificationKey];
+
+    if(!modificationAttribute)
+        return;
 
     if (![modificationAttribute isKindOfClass:[NSString class]])
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:[NSString stringWithFormat:@"Modification attribute must be provided as string"] userInfo:nil];
