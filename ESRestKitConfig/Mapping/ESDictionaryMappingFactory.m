@@ -136,6 +136,14 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
     RKObjectMapping * mapping = [RKObjectMapping mappingForClass:NSClassFromString(dictionary[kObjectKey])];
     [self addAttributesToMapping:mapping fromConf:dictionary];
     [self addRelationshipsToMapping:mapping conf:dictionary];
+
+    NSNumber * forceCollection = dictionary[@"ForceCollection"];
+
+    if([forceCollection boolValue])
+    {
+        mapping.forceCollectionMapping = YES;
+    }
+
     return mapping;
 }
 

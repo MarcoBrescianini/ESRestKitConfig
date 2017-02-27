@@ -1,14 +1,13 @@
-source 'https://github.com/CocoaPods/Specs.git'
-
 platform :ios, '8.0'
 inhibit_all_warnings!
 use_frameworks!
 
-link_with 'ESRestKitConfig'
+target 'ESRestKitConfig' do
 
-pod 'RestKit', '~> 0.25.0'
+  pod 'RestKit', '~> 0.27.0'
 
-target :test, :exclusive => true do
-  link_with 'ESRestKitConfigTests'
-  pod 'OCMock'
+  target 'ESRestKitConfigTests' do
+    inherit! :search_paths
+    pod 'OCMock'
+  end
 end

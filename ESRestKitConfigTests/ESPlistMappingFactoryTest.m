@@ -529,6 +529,30 @@ static RKManagedObjectStore *managedObjectStore;
     [self assertObjectMapping:mapping equalsExpectedConfig:conf[@"foo"]];
 }
 
+- (void)testObjectMapping_forceCollection
+{
+    NSDictionary * conf = @{
+            @"foo" : @{
+                    @"Object" : @"ESDummy",
+                    @"Attributes" : @{
+                            @"name" : @"name",
+                            @"age" : @"age",
+                            @"birthday" : @"birthday",
+                            @"camel_case" : @"camelCase"
+                    },
+                    @"ForceCollection" : @YES
+            },
+    };
+
+    factory = [[ESPlistMappingFactory alloc] initWithDictionary:conf store:managedObjectStore];
+
+    RKObjectMapping * mapping  = (RKObjectMapping *) [factory createMappingNamed:@"foo"];
+
+    XCTAssertNotNil(mapping);
+    XCTAssertTrue([mapping isKindOfClass:[RKObjectMapping class]]);
+    XCTAssertFalse([mapping isMemberOfClass:[RKObjectManager class]]);
+    XCTAssertTrue(mapping.forceCollectionMapping);
+}
 
 -(void)testObjectMapping_withRelationships
 {
