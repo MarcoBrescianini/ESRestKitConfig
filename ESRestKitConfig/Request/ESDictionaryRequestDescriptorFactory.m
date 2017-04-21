@@ -70,7 +70,13 @@ static NSString * const kKeypathKey = @"keypath";
 
     @try
     {
-        method = RKRequestMethodFromString(methodString);
+        if ([[methodString lowercaseString] isEqualToString:@"any"])
+        {
+            method = RKRequestMethodAny;
+        } else
+        {
+            method = RKRequestMethodFromString(methodString);
+        }
     }@catch(NSException *)
     {
         @throw [NSException exceptionWithName:@"PlistMalformedException"

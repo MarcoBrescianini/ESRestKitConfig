@@ -135,6 +135,27 @@
     XCTAssertTrue([descriptor isEqualToResponseDescriptor:expectedDescriptor]);
 }
 
+- (void)testResponseDescriptorForAnyMethod
+{
+    NSDictionary *config = @{
+            @"desc": @{
+                    @"keypath"   : @"keypath",
+                    @"method"    : @"Any",
+                    @"mapping"   : @"foo",
+                    @"statusCode": @200
+            }
+    };
+
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+
+    RKResponseDescriptor *descriptor = [factory createDescriptorNamed:@"desc"];
+    RKResponseDescriptor *expectedDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:fooMappingMock method:RKRequestMethodAny pathPattern:nil keyPath:@"keypath" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+
+    OCMStub([fooMappingMock isEqualToMapping:OCMOCK_ANY]).andReturn(YES);
+
+    XCTAssertTrue([descriptor isEqualToResponseDescriptor:expectedDescriptor]);
+}
+
 - (void)testMethodNotFoundThrows
 {
     NSDictionary * config = @{

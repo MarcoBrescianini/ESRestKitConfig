@@ -70,7 +70,14 @@ static NSString * const kMappingKey = @"mapping";
     @try
     {
         NSString * methodString = descriptorConf[kMethodKey];
-        method = RKRequestMethodFromString(methodString);
+
+        if ([[methodString lowercaseString] isEqualToString:@"any"])
+        {
+            method = RKRequestMethodAny;
+        } else
+        {
+            method = RKRequestMethodFromString(methodString);
+        }
     } @catch (NSException *)
     {
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Method not provided, or not supported" userInfo:nil];
@@ -91,11 +98,6 @@ static NSString * const kMappingKey = @"mapping";
 - (NSString *)readRoute:(NSDictionary *)descriptorConf
 {
     NSString * pathPattern = descriptorConf[kRouteKey];
-
-    if (!pathPattern || pathPattern.length <= 0)
-        @throw [NSException exceptionWithName:@"PlistMalformedException"
-                                       reason:[NSString stringWithFormat:@"Path Pattern cannot be empty %@", pathPattern]
-                                     userInfo:nil];
 
     return pathPattern;
 }

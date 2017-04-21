@@ -218,6 +218,32 @@
     OCMVerifyAll(fooMappingMock);
 }
 
+- (void)testDescriptorForName_withAnyMethod
+{
+    NSDictionary *config = @{
+            @"desc": @{
+                    @"keypath": @"keypath",
+                    @"method" : @"Any",
+                    @"mapping": @"foo",
+                    @"object" : @"ESFoo"
+            }
+    };
+
+    OCMExpect([fooMappingMock inverseMapping]).andReturn(inversedFooMapping);
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+
+    RKRequestDescriptor *descriptor = [factory createDescriptorNamed:@"desc"];
+    RKRequestDescriptor *expectedDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:inversedFooMapping
+                                                                                    objectClass:[ESFoo class]
+                                                                                    rootKeyPath:@"keypath"
+                                                                                         method:RKRequestMethodAny];
+
+    OCMStub([inversedFooMapping isEqualToMapping:OCMOCK_ANY]).andReturn(YES);
+
+    XCTAssertTrue([expectedDescriptor isEqualToRequestDescriptor:descriptor]);
+    OCMVerifyAll(fooMappingMock);
+}
+
 
 - (void)testCreateResponseDescriptors
 {
