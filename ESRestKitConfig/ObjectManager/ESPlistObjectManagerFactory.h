@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithFilename:(NSString*)filename;
 - (instancetype)initWithFilename:(NSString*)filename inBundle:(NSBundle * )bundle;
 - (instancetype)initWithFilepath:(NSString*)filepath;
+- (instancetype)initWithFilepath:(NSString *)filepath baseURL:(nullable NSString *)baseURL;
 
 @end
 

@@ -23,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithConfig:(NSDictionary * )config NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithConfig:(NSDictionary *)config;
+- (instancetype)initWithConfig:(NSDictionary *)config baseURL:(nullable NSString *)baseURL NS_DESIGNATED_INITIALIZER;
 
 - (RKManagedObjectStore *)createManagedObjectStore:(NSDictionary *)storeConfig;
 - (NSManagedObjectModel *)loadManagedObjectModel:(NSDictionary *)storeConfig;

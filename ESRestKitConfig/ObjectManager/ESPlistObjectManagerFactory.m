@@ -34,8 +34,15 @@
 
 - (instancetype)initWithFilepath:(NSString *)filepath
 {
-    self = [super initWithConfig:[NSDictionary dictionaryWithContentsOfFile:filepath]];
+    self = [self initWithFilepath:filepath baseURL:nil];
     return self;
 }
+
+- (instancetype)initWithFilepath:(NSString *)filepath baseURL:(NSString *)baseURL
+{
+    self = [super initWithConfig:[NSDictionary dictionaryWithContentsOfFile:filepath] baseURL:baseURL];
+    return self;
+}
+
 
 @end

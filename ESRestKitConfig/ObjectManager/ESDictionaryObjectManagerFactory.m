@@ -44,16 +44,31 @@ static NSString * const kRequestsKey = @"requests";
 
 - (instancetype)initWithConfig:(NSDictionary *)config
 {
+    self = [self initWithConfig:config baseURL:nil];
+    return self;
+}
+
+- (instancetype)initWithConfig:(NSDictionary *)config baseURL:(NSString *)baseURL
+{
     NSAssert(config.count > 0, @"Must provide a non empty dictionary");
+
+    NSMutableDictionary *mutableDictionary = [config mutableCopy];
+
+    if (baseURL.length > 0)
+    {
+        mutableDictionary[kBaseURLKey] = baseURL;
+    }
 
     self = [super init];
 
     if(self)
     {
-        _config = config;
+        _config = mutableDictionary;
     }
+
     return self;
 }
+
 
 - (RKObjectManager *)createObjectManager
 {
