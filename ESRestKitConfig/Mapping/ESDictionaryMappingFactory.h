@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDictionary:(NSDictionary *)config NS_DESIGNATED_INITIALIZER;
 
-- (RKDynamicMapping *)createDynamicMappingFrom:(NSDictionary *)dictionary;
-- (RKObjectMapping *)createObjectMappingFrom:(NSDictionary *)dictionary;
+- (RKDynamicMapping *)createDynamicMappingFrom:(NSDictionary *)dictionary inStore:(RKManagedObjectStore *)store;
+- (RKObjectMapping *)createObjectMappingFrom:(NSDictionary *)dictionary inStore:(RKManagedObjectStore *)store;
 - (RKEntityMapping *)createEntityMappingFrom:(NSDictionary *)mappingDictionary inStore:(RKManagedObjectStore *)store;
 
 + (instancetype)new NS_UNAVAILABLE;

@@ -100,9 +100,9 @@ static NSString *const kRelationshipNameKey = @"relationshipName";
     if (mappingDictionary[kEntityKey])
         mapping = [self createEntityMappingFrom:mappingDictionary inStore:store];
     else if (mappingDictionary[kObjectKey])
-        mapping = [self createObjectMappingFrom:mappingDictionary];
+        mapping = [self createObjectMappingFrom:mappingDictionary inStore:store];
     else if (mappingDictionary[kDynamicKey])
-        mapping = [self createDynamicMappingFrom:mappingDictionary];
+        mapping = [self createDynamicMappingFrom:mappingDictionary inStore:store];
     else
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping Target type not specified should be either Object, Entity or Dynamic" userInfo:nil];
 
@@ -112,29 +112,29 @@ static NSString *const kRelationshipNameKey = @"relationshipName";
 //============================================================================
 #pragma mark - Dynamic Mapping
 
-- (RKDynamicMapping *)createDynamicMappingFrom:(NSDictionary *)dictionary
+- (RKDynamicMapping *)createDynamicMappingFrom:(NSDictionary *)dictionary inStore:(RKManagedObjectStore *)store
 {
     RKDynamicMapping *mapping = [RKDynamicMapping new];
 
-    [self addMatchersToMapping:mapping fromConf:dictionary];
+    [self addMatchersToMapping:mapping fromConf:dictionary inStore:store];
 
     return mapping;
 }
 
-- (void)addMatchersToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf
+- (void)addMatchersToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf inStore:(RKManagedObjectStore *)store
 {
     NSArray *matchersConf = conf[kMatchersKey];
 
     for (NSDictionary *matcherConf in matchersConf)
-        [self addMatcherToMapping:mapping fromConf:matcherConf];
+        [self addMatcherToMapping:mapping fromConf:matcherConf inStore:store];
 }
 
-- (void)addMatcherToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf
+- (void)addMatcherToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf inStore:(RKManagedObjectStore *)store
 {
     NSString *keyPath = conf[kKeyPathKey];
     id expectedValue = conf[kExpectedValueKey];
     NSString *mappingRef = conf[kMappingRefKey];
-    RKMapping *objectMapping = [self createMappingNamed:mappingRef];
+    RKMapping *objectMapping = [self createMappingNamed:mappingRef inStore:store];
 
     if ([objectMapping isKindOfClass:[RKObjectMapping class]])
     {
@@ -148,11 +148,11 @@ static NSString *const kRelationshipNameKey = @"relationshipName";
 //========================================================================================
 #pragma mark - Object Mapping
 
-- (RKObjectMapping *)createObjectMappingFrom:(NSDictionary *)dictionary
+- (RKObjectMapping *)createObjectMappingFrom:(NSDictionary *)dictionary inStore:(RKManagedObjectStore *)store
 {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:NSClassFromString(dictionary[kObjectKey])];
     [self addAttributesToMapping:mapping fromConf:dictionary];
-    [self addRelationshipsToMapping:mapping conf:dictionary inStore:nil];
+    [self addRelationshipsToMapping:mapping conf:dictionary inStore:store];
 
     NSNumber *forceCollection = dictionary[@"ForceCollection"];
 
