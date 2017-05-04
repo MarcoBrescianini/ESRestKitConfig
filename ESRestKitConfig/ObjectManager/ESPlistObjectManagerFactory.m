@@ -40,7 +40,13 @@
 
 - (instancetype)initWithFilepath:(NSString *)filepath baseURL:(NSString *)baseURL
 {
-    self = [super initWithConfig:[NSDictionary dictionaryWithContentsOfFile:filepath] baseURL:baseURL];
+    self = [self initWithFilepath:filepath baseURL:baseURL routeFactory:nil mappingFactory:nil responseDescriptorFactory:nil requestDescriptorFactory:nil];
+    return self;
+}
+
+- (instancetype)initWithFilepath:(NSString *)filepath baseURL:(nullable NSString *)baseURL routeFactory:(nullable id <ESRoutesFactory>)routesFactory mappingFactory:(nullable id <ESMappingFactory>)mappingFactory responseDescriptorFactory:(nullable id <ESResponseDescriptorFactory>)responseDescriptorFactory requestDescriptorFactory:(nullable id <ESRequestDescriptorFactory>)requestDescriptorFactory
+{
+    self = [super initWithConfig:[NSDictionary dictionaryWithContentsOfFile:filepath] baseURL:baseURL routeFactory:routesFactory mappingFactory:mappingFactory responseDescriptorFactory:responseDescriptorFactory requestDescriptorFactory:requestDescriptorFactory];
     return self;
 }
 
