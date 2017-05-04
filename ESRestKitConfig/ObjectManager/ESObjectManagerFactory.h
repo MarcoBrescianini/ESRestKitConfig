@@ -10,6 +10,6 @@
 
 @protocol ESObjectManagerFactory <NSObject>
 
--(RKObjectManager * )createObjectManager;
+- (RKObjectManager *)createObjectManager;
 
 @end

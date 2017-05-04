@@ -24,7 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 - (instancetype)initWithConfig:(NSDictionary *)config;
-- (instancetype)initWithConfig:(NSDictionary *)config baseURL:(nullable NSString *)baseURL NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithConfig:(NSDictionary *)config baseURL:(nullable NSString *)baseURL;
+- (instancetype)initWithConfig:(NSDictionary *)config
+                       baseURL:(nullable NSString *)baseURL
+                  routeFactory:(nullable id <ESRoutesFactory>)routesFactory
+                mappingFactory:(nullable id <ESMappingFactory>)mappingFactory
+     responseDescriptorFactory:(nullable id <ESResponseDescriptorFactory>)responseDescriptorFactory
+      requestDescriptorFactory:(nullable id <ESRequestDescriptorFactory>)requestDescriptorFactory NS_DESIGNATED_INITIALIZER;
 
 - (RKManagedObjectStore *)createManagedObjectStore:(NSDictionary *)storeConfig;
 - (NSManagedObjectModel *)loadManagedObjectModel:(NSDictionary *)storeConfig;
@@ -32,11 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)createCoreDataStack:(NSDictionary *)storeConfig store:(RKManagedObjectStore *)store;
 - (void)setupStoreCache:(NSDictionary *)storeConfig store:(RKManagedObjectStore *)store;
 - (void)loadRoutesAndDescriptorsIn:(RKObjectManager *)manager;
-
-- (id <ESRoutesFactory>)createRoutesFactory;
-- (id <ESMappingFactory>)createMappingsFactory:(RKObjectManager *)manager;
-- (id <ESResponseDescriptorFactory>)createResponseDescriptorFactory:(NSDictionary<NSString *, RKEntityMapping *> *)mappings;
-- (id <ESRequestDescriptorFactory>)createRequestDescriptorFactory:(NSDictionary<NSString *, RKEntityMapping *> *)mappings;
 
 + (instancetype)new NS_UNAVAILABLE;
 

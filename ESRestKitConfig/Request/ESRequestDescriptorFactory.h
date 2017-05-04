@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ESRequestDescriptorFactory <NSObject>
 
-- (NSArray<RKRequestDescriptor *> *)createAllDescriptors;
-- (RKRequestDescriptor *)createDescriptorNamed:(NSString *)name;
+- (NSArray<RKRequestDescriptor *> *)createAllDescriptors:(NSDictionary<NSString *, RKMapping *> *)mappings;
+- (RKRequestDescriptor *)createDescriptorNamed:(NSString *)name forMappings:(NSDictionary<NSString *, RKMapping *> *)mappings;
 
 @end
 

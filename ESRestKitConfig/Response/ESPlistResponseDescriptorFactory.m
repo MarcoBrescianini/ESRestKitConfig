@@ -8,43 +8,36 @@
 
 #import "ESPlistResponseDescriptorFactory.h"
 
-static NSString * const kDefaultFilename = @"Response";
+static NSString *const kDefaultFilename = @"Response";
 
 @implementation ESPlistResponseDescriptorFactory
 
 - (instancetype)init
 {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Cannot call init, must call initWithMappings:" userInfo:nil];
-}
-
-- (instancetype)initWithMappings:(ESMappingMap)mappings
-{
-    self = [self initWithMappings:mappings filename:kDefaultFilename];
+    self = [self initWithFilename:kDefaultFilename];
     return self;
 }
 
-- (instancetype)initWithMappings:(ESMappingMap)mappings filename:(NSString *)filename
+- (instancetype)initWithFilename:(NSString *)filename
 {
-    self = [self initWithMappings:mappings filename:filename inBundle:[NSBundle mainBundle]];
+    self = [self initWithFilename:filename inBundle:[NSBundle mainBundle]];
     return self;
 }
 
-
-- (instancetype)initWithMappings:(ESMappingMap)mappings filename:(NSString *)filename inBundle:(NSBundle *)bundle
+- (instancetype)initWithFilename:(NSString *)filename inBundle:(NSBundle *)bundle
 {
-    NSString * path = [bundle pathForResource:filename ofType:@"plist"];
+    NSString *path = [bundle pathForResource:filename ofType:@"plist"];
 
     if (!path)
         @throw [NSException exceptionWithName:@"PlistNotFoundException" reason:@"Plist file not found" userInfo:nil];
 
-    self = [self initWithMappings:mappings filepath:path];
+    self = [self initWithFilepath:path];
     return self;
 }
 
-
-- (instancetype)initWithMappings:(ESMappingMap)mappings filepath:(NSString *)filepath
+- (instancetype)initWithFilepath:(NSString *)filepath
 {
-    self = [super initWithMappings:mappings config:[NSDictionary dictionaryWithContentsOfFile:filepath]];
+    self = [super initWithConfig:[NSDictionary dictionaryWithContentsOfFile:filepath]];
     return self;
 }
 

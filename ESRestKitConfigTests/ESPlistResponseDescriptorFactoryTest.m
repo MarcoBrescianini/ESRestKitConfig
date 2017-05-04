@@ -18,7 +18,7 @@
 @interface ESPlistResponseDescriptorFactoryTest : XCTestCase {
     ESPlistResponseDescriptorFactory * factory;
 
-    ESMappingMap mappingMap;
+    NSDictionary<NSString *, RKMapping *> *mappingMap;
     id fooMappingMock;
     id barMappingMock;
 }
@@ -46,14 +46,14 @@
 
 - (void)testInitWithEmptyMappingThrows
 {
-    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithMappings:nil config:@{}]);
-    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithMappings:@{} config:@{}]);
+    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithConfig:@{}]);
+    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithConfig:@{}]);
 }
 
 - (void)testInitWithEmptyConfigDictionaryThrows
 {
-    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:nil]);
-    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:@{}]);
+    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithConfig:nil]);
+    XCTAssertThrows([[ESPlistResponseDescriptorFactory alloc] initWithConfig:@{}]);
 }
 
 - (void)testCanInitWithConfigDictionary
@@ -63,10 +63,9 @@
             }
     };
 
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithConfig:config];
 
     XCTAssertNotNil(factory);
-    XCTAssertNotNil(factory.mappings);
     XCTAssertNotNil(factory.config);
 }
 
@@ -74,10 +73,9 @@
 
 - (void)_testCanInitFromMainBundle
 {
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap filename:@"Response"];
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithFilename:@"Response"];
 
     XCTAssertNotNil(factory);
-    XCTAssertNotNil(factory.mappings);
     XCTAssertNotNil(factory.config);
 }
 
@@ -90,10 +88,9 @@
         NSDictionary * conf = [ESConfigFixtures responseConfigDictionary];
         filepath = [ESConfigFixtures writeResponseFile:conf];
 
-        factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap filepath:filepath];
+        factory = [[ESPlistResponseDescriptorFactory alloc] initWithFilepath:filepath];
 
         XCTAssertNotNil(factory);
-        XCTAssertNotNil(factory.mappings);
         XCTAssertNotNil(factory.config);
 
     }
@@ -125,9 +122,9 @@
                     @"statusCode" : @200
             }
     };
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithConfig:config];
 
-    RKResponseDescriptor * descriptor = [factory createDescriptorNamed:@"desc"];
+    RKResponseDescriptor *descriptor = [factory createDescriptorNamed:@"desc" forMappings:mappingMap];
     RKResponseDescriptor * expectedDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:fooMappingMock method:RKRequestMethodGET pathPattern:@"foo/" keyPath:@"keypath" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 
     OCMStub([fooMappingMock isEqualToMapping:OCMOCK_ANY]).andReturn(YES);
@@ -146,9 +143,9 @@
             }
     };
 
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithConfig:config];
 
-    RKResponseDescriptor *descriptor = [factory createDescriptorNamed:@"desc"];
+    RKResponseDescriptor *descriptor = [factory createDescriptorNamed:@"desc" forMappings:mappingMap];
     RKResponseDescriptor *expectedDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:fooMappingMock method:RKRequestMethodAny pathPattern:nil keyPath:@"keypath" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 
     OCMStub([fooMappingMock isEqualToMapping:OCMOCK_ANY]).andReturn(YES);
@@ -168,9 +165,9 @@
             }
     };
 
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithConfig:config];
 
-    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc" forMappings:mappingMap], NSException, @"PlistMalformedException");
 }
 
 - (void)testStatusCodeNotFoundThrows
@@ -184,8 +181,8 @@
                     @"statusCode" : @1200
             }
     };
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
-    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithConfig:config];
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc" forMappings:mappingMap], NSException, @"PlistMalformedException");
 }
 
 - (void)testMappingNotFoundThrows
@@ -199,8 +196,8 @@
                     @"statusCode" : @200
             }
     };
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
-    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithConfig:config];
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc" forMappings:mappingMap], NSException, @"PlistMalformedException");
 }
 
 - (void)testCreateResponseDescriptors
@@ -221,9 +218,9 @@
                     @"statusCode" : @200
             }
     };
-    factory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistResponseDescriptorFactory alloc] initWithConfig:config];
 
-    NSArray<RKResponseDescriptor *> * descriptors = [factory createAllDescriptors];
+    NSArray<RKResponseDescriptor *> *descriptors = [factory createAllDescriptors:mappingMap];
 
     XCTAssertNotNil(descriptors);
     XCTAssertEqual(descriptors.count, 2);

@@ -15,8 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ESMappingFactory <NSObject>
 
 - (RKMapping *)createMappingNamed:(NSString *)name;
-- (NSArray<RKMapping*> * )createAllMappings;
+- (RKMapping *)createMappingNamed:(NSString *)name inStore:(RKManagedObjectStore *)store;
+- (NSArray<RKMapping *> *)createAllMappings;
+- (NSArray<RKMapping *> *)createAllMappingsInStore:(RKManagedObjectStore *)store;
 - (NSDictionary<NSString *, RKMapping *> *)createMappings;
+- (NSDictionary<NSString *, RKMapping *> *)createMappingsInStore:(RKManagedObjectStore *)store;
 
 @end
 

@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @class RKResponseDescriptor;
+@class RKMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ESResponseDescriptorFactory <NSObject>
 
-- (NSArray<RKResponseDescriptor *> *)createAllDescriptors;
-- (RKResponseDescriptor *)createDescriptorNamed:(NSString *)name;
+- (NSArray<RKResponseDescriptor *> *)createAllDescriptors:(NSDictionary<NSString *, RKMapping *> *)mappings;
+- (RKResponseDescriptor *)createDescriptorNamed:(NSString *)name forMappings:(NSDictionary<NSString *, RKMapping *> *)mappings;
 
 @end
 

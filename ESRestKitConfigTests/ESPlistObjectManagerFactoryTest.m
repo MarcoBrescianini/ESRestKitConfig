@@ -63,7 +63,7 @@
     ESPlistObjectManagerFactory * factory = [[ESPlistObjectManagerFactory alloc] initWithConfig:config];
 
     XCTAssertNotNil(factory);
-    XCTAssertEqual(config, factory.config);
+    XCTAssertEqualObjects(config, factory.config);
 }
 
 - (void)testInitWithEmptyDictionary_throws
@@ -321,24 +321,24 @@
 
 - (NSDictionary<NSString *, RKMapping *> *)createMappingsFromFile:(RKObjectManager*)manager
 {
-    ESPlistMappingFactory * mappingFactory = [[ESPlistMappingFactory alloc] initWithFilepath:mappingFilepath store:manager.managedObjectStore];
-    NSDictionary<NSString*, RKMapping*> * mappings = [mappingFactory createMappings];
+    ESPlistMappingFactory *mappingFactory = [[ESPlistMappingFactory alloc] initWithFilepath:mappingFilepath];
+    NSDictionary<NSString *, RKMapping *> *mappings = [mappingFactory createMappingsInStore:manager.managedObjectStore];
     return mappings;
 }
 
 - (NSArray<RKResponseDescriptor *> *)createResponseDescriptorsFromFileWith:(NSDictionary<NSString *, RKMapping *> *)mappings
 {
-    ESPlistResponseDescriptorFactory * responseFactory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappings filepath:responseFilepath];
+    ESPlistResponseDescriptorFactory *responseFactory = [[ESPlistResponseDescriptorFactory alloc] initWithFilepath:responseFilepath];
 
-    NSArray<RKResponseDescriptor*>* descriptors = [responseFactory createAllDescriptors];
+    NSArray<RKResponseDescriptor *> *descriptors = [responseFactory createAllDescriptors:mappings];
     return descriptors;
 }
 
 -(NSArray<RKRequestDescriptor*>*)createRequestDescriptorsFromFileWith:(NSDictionary<NSString *, RKMapping *> *)mappings
 {
-    ESPlistRequestDescriptorFactory * responseFactory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappings filepath:requestFilepath];
+    ESPlistRequestDescriptorFactory *responseFactory = [[ESPlistRequestDescriptorFactory alloc] initWithFilepath:requestFilepath];
 
-    NSArray<RKRequestDescriptor*>* descriptors = [responseFactory createAllDescriptors];
+    NSArray<RKRequestDescriptor *> *descriptors = [responseFactory createAllDescriptors:mappings];
     return descriptors;
 }
 

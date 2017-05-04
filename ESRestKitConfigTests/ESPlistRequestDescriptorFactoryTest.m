@@ -20,7 +20,7 @@
 {
     ESPlistRequestDescriptorFactory * factory;
 
-    ESMappingMap mappingMap;
+    NSDictionary<NSString *, RKMapping *> *mappingMap;
 
     id fooMappingMock;
     id barMappingMock;
@@ -59,14 +59,14 @@
 
 - (void)testInitWithEmptyMappingThrows
 {
-    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithMappings:nil config:@{}]);
-    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithMappings:@{} config:@{}]);
+    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithConfig:@{}]);
+    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithConfig:@{}]);
 }
 
 - (void)testInitWithEmptyConfigDictionaryThrows
 {
-    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:nil]);
-    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:@{}]);
+    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithConfig:nil]);
+    XCTAssertThrows([[ESPlistRequestDescriptorFactory alloc] initWithConfig:@{}]);
 }
 
 - (void)testCanInitWithConfigDictionary
@@ -77,7 +77,7 @@
             }
     };
 
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
     [self assertFactoryInitialized];
 }
@@ -90,7 +90,7 @@
         NSDictionary * conf = [ESConfigFixtures requestConfigDictionary];
         filepath = [ESConfigFixtures writeRequestFile:conf];
 
-        factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap filepath:filepath];
+        factory = [[ESPlistRequestDescriptorFactory alloc] initWithFilepath:filepath];
 
         [self assertFactoryInitialized];
 
@@ -111,7 +111,7 @@
 #warning Skipped Test
 - (void)_testCanInitFromMainBundle
 {
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap filename:@"Request"];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithFilename:@"Request"];
 
     [self assertFactoryInitialized];
 }
@@ -119,7 +119,6 @@
 - (void)assertFactoryInitialized
 {
     XCTAssertNotNil(factory);
-    XCTAssertNotNil(factory.mappings);
     XCTAssertNotNil(factory.config);
 }
 
@@ -137,9 +136,9 @@
                     @"object" : @"ESFoo"
             }
     };
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
-    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"baz"], NSException, @"ConfigurationException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"baz" forMappings:mappingMap], NSException, @"ConfigurationException");
 }
 
 
@@ -153,9 +152,9 @@
                     @"object" : @"ESFoo"
             }
     };
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
-    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc" forMappings:mappingMap], NSException, @"PlistMalformedException");
 }
 
 
@@ -169,9 +168,9 @@
                     @"object" : @"ESFoo"
             }
     };
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
-    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc" forMappings:mappingMap], NSException, @"PlistMalformedException");
 }
 
 
@@ -186,9 +185,9 @@
             }
     };
 
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
-    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc"], NSException, @"PlistMalformedException");
+    XCTAssertThrowsSpecificNamed([factory createDescriptorNamed:@"desc" forMappings:mappingMap], NSException, @"PlistMalformedException");
 }
 
 
@@ -204,9 +203,9 @@
     };
 
     OCMExpect([fooMappingMock inverseMapping]).andReturn(inversedFooMapping);
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
-    RKRequestDescriptor * descriptor = [factory createDescriptorNamed:@"desc"];
+    RKRequestDescriptor *descriptor = [factory createDescriptorNamed:@"desc" forMappings:mappingMap];
     RKRequestDescriptor * expectedDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:inversedFooMapping
                                                                                      objectClass:[ESFoo class]
                                                                                      rootKeyPath:@"keypath"
@@ -230,9 +229,9 @@
     };
 
     OCMExpect([fooMappingMock inverseMapping]).andReturn(inversedFooMapping);
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
-    RKRequestDescriptor *descriptor = [factory createDescriptorNamed:@"desc"];
+    RKRequestDescriptor *descriptor = [factory createDescriptorNamed:@"desc" forMappings:mappingMap];
     RKRequestDescriptor *expectedDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:inversedFooMapping
                                                                                     objectClass:[ESFoo class]
                                                                                     rootKeyPath:@"keypath"
@@ -265,9 +264,9 @@
     OCMExpect([fooMappingMock inverseMapping]).andReturn(inversedFooMapping);
     OCMExpect([barMappingMock inverseMapping]).andReturn(inversedBarMapping);
 
-    factory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappingMap config:config];
+    factory = [[ESPlistRequestDescriptorFactory alloc] initWithConfig:config];
 
-    NSArray<RKRequestDescriptor *>* descriptors = [factory createAllDescriptors];
+    NSArray<RKRequestDescriptor *> *descriptors = [factory createAllDescriptors:mappingMap];
 
     XCTAssertNotNil(descriptors);
     XCTAssertEqual(descriptors.count, 2);

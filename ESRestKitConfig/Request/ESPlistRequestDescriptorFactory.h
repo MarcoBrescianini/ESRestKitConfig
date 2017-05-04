@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ESPlistRequestDescriptorFactory : ESDictionaryRequestDescriptorFactory
 
-- (instancetype)initWithMappings:(ESMappingMap)mappings;
-- (instancetype)initWithMappings:(ESMappingMap)mappings filename:(NSString *)filename;
-- (instancetype)initWithMappings:(ESMappingMap)mappings filename:(NSString *)filename inBundle:(NSBundle * )bundle;
-- (instancetype)initWithMappings:(ESMappingMap)mappings filepath:(NSString *)filepath;
+- (instancetype)init;
+- (instancetype)initWithFilename:(NSString *)filename;
+- (instancetype)initWithFilename:(NSString *)filename inBundle:(NSBundle *)bundle;
+- (instancetype)initWithFilepath:(NSString *)filepath;
 
 @end
 

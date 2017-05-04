@@ -12,10 +12,6 @@
 #import "ESPlistResponseDescriptorFactory.h"
 #import "ESPlistRoutesFactory.h"
 #import "ESPlistMappingFactory.h"
-#import "ESMappingFactory.h"
-#import "ESRoutesFactory.h"
-#import "ESResponseDescriptorFactory.h"
-#import "ESRequestDescriptorFactory.h"
 
 
 static NSString * const kBaseURLKey = @"baseURL";
@@ -40,6 +36,15 @@ static NSString * const kResponsesKey = @"responses";
 
 static NSString * const kRequestsKey = @"requests";
 
+@interface ESDictionaryObjectManagerFactory ()
+
+@property (nonatomic, strong) id <ESRoutesFactory> routesFactory;
+@property (nonatomic, strong) id <ESMappingFactory> mappingFactory;
+@property (nonatomic, strong) id <ESResponseDescriptorFactory> responseDescriptorFactory;
+@property (nonatomic, strong) id <ESRequestDescriptorFactory> requestDescriptorFactory;
+
+@end
+
 @implementation ESDictionaryObjectManagerFactory
 
 - (instancetype)initWithConfig:(NSDictionary *)config
@@ -49,6 +54,12 @@ static NSString * const kRequestsKey = @"requests";
 }
 
 - (instancetype)initWithConfig:(NSDictionary *)config baseURL:(NSString *)baseURL
+{
+    self = [self initWithConfig:config baseURL:baseURL routeFactory:nil mappingFactory:nil responseDescriptorFactory:nil requestDescriptorFactory:nil];
+    return self;
+}
+
+- (instancetype)initWithConfig:(NSDictionary *)config baseURL:(nullable NSString *)baseURL routeFactory:(nullable id <ESRoutesFactory>)routesFactory mappingFactory:(nullable id <ESMappingFactory>)mappingFactory responseDescriptorFactory:(nullable id <ESResponseDescriptorFactory>)responseDescriptorFactory requestDescriptorFactory:(nullable id <ESRequestDescriptorFactory>)requestDescriptorFactory
 {
     NSAssert(config.count > 0, @"Must provide a non empty dictionary");
 
@@ -64,6 +75,10 @@ static NSString * const kRequestsKey = @"requests";
     if(self)
     {
         _config = mutableDictionary;
+        _routesFactory = routesFactory;
+        _mappingFactory = mappingFactory;
+        _requestDescriptorFactory = requestDescriptorFactory;
+        _responseDescriptorFactory = responseDescriptorFactory;
     }
 
     return self;
@@ -189,12 +204,15 @@ static NSString * const kRequestsKey = @"requests";
 
 - (NSDictionary<NSString *, RKRoute *> *)createRoutes
 {
-    id<ESRoutesFactory>  routesFactory = [self createRoutesFactory];
-    return [routesFactory createRoutes];
+    [self createRoutesFactoryIfNeeded];
+    return [self.routesFactory createRoutes];
 }
 
-- (id <ESRoutesFactory>)createRoutesFactory
+- (void)createRoutesFactoryIfNeeded
 {
+    if (self.routesFactory)
+        return;
+
     id <ESRoutesFactory> routesFactory;
 
     id routes = self.config[kRoutesKey];
@@ -219,56 +237,61 @@ static NSString * const kRequestsKey = @"requests";
     {
         routesFactory = [[ESPlistRoutesFactory alloc] init];
     }
-    return routesFactory;
+    self.routesFactory = routesFactory;
 }
 
 - (NSDictionary<NSString *, RKMapping *> *)createMappings:(RKObjectManager *)manager
 {
-    id <ESMappingFactory> mappingFactory = [self createMappingsFactory:manager];
-    return [mappingFactory createMappings];
+    [self createMappingsFactoryIfNeeded];
+    return [self.mappingFactory createMappingsInStore:manager.managedObjectStore];
 }
 
-- (id <ESMappingFactory>)createMappingsFactory:(RKObjectManager *)manager
+- (void)createMappingsFactoryIfNeeded
 {
+    if (self.mappingFactory)
+        return;
+
     id<ESMappingFactory> mappingFactory = nil;
-    RKManagedObjectStore * store = manager.managedObjectStore;
 
     id mappings = self.config[kMappingsKey];
 
     if(mappings)
     {
-
         if([mappings isKindOfClass:[NSDictionary class]])
         {
-            mappingFactory = [[ESDictionaryMappingFactory alloc] initWithDictionary:mappings store:store];
+            mappingFactory = [[ESDictionaryMappingFactory alloc] initWithDictionary:mappings];
         } else if([mappings isKindOfClass:[NSString class]])
         {
             NSArray * components = [mappings pathComponents];
             if(components.count == 1)
             {
-                mappingFactory = [[ESPlistMappingFactory alloc] initWithFilename:mappings store:store];
+                mappingFactory = [[ESPlistMappingFactory alloc] initWithFilename:mappings];
             } else
             {
-                mappingFactory = [[ESPlistMappingFactory alloc] initWithFilepath:mappings store:store];
+                mappingFactory = [[ESPlistMappingFactory alloc] initWithFilepath:mappings];
             }
 
         }
     } else
     {
-        mappingFactory = [[ESPlistMappingFactory alloc] initWithStore:store];
+        mappingFactory = [[ESPlistMappingFactory alloc] init];
     }
 
-    return mappingFactory;
+    self.mappingFactory = mappingFactory;
 }
 
 - (NSArray *)createResponseDescriptors:(NSDictionary<NSString *, RKEntityMapping *> *)mappings
 {
-    id<ESResponseDescriptorFactory> responseFactory = [self createResponseDescriptorFactory:mappings];
-    return [responseFactory createAllDescriptors];
+    [self createResponseDescriptorFactoryIfNeeded];
+
+    return [self.responseDescriptorFactory createAllDescriptors:mappings];
 }
 
-- (id <ESResponseDescriptorFactory>)createResponseDescriptorFactory:(NSDictionary<NSString *, RKEntityMapping *> *)mappings
+- (void)createResponseDescriptorFactoryIfNeeded
 {
+    if (self.responseDescriptorFactory)
+        return;
+
     id<ESResponseDescriptorFactory> responseFactory = nil;
 
     id response = self.config[kResponsesKey];
@@ -276,35 +299,38 @@ static NSString * const kRequestsKey = @"requests";
     {
         if ([response isKindOfClass:[NSDictionary class]])
         {
-            responseFactory = [[ESDictionaryResponseDescriptorFactory alloc] initWithMappings:mappings config:response];
+            responseFactory = [[ESDictionaryResponseDescriptorFactory alloc] initWithConfig:response];
         } else if([response isKindOfClass:[NSString class]])
         {
             NSArray * components = [response pathComponents];
             if(components.count == 1)
             {
-                responseFactory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappings filename:response];
+                responseFactory = [[ESPlistResponseDescriptorFactory alloc] initWithFilename:response];
             } else
             {
-                responseFactory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappings filepath:response];
+                responseFactory = [[ESPlistResponseDescriptorFactory alloc] initWithFilepath:response];
             }
 
         }
     } else
     {
-        responseFactory = [[ESPlistResponseDescriptorFactory alloc] initWithMappings:mappings];
+        responseFactory = [[ESPlistResponseDescriptorFactory alloc] init];
     }
 
-    return responseFactory;
+    self.responseDescriptorFactory = responseFactory;
 }
 
 - (NSArray *)createRequestDescriptors:(NSDictionary<NSString *, RKEntityMapping *> *)mappings
 {
-    id<ESRequestDescriptorFactory> requestFactory = [self createRequestDescriptorFactory:mappings];
-    return [requestFactory createAllDescriptors];
+    [self createRequestDescriptorFactoryIfNeeded];
+    return [self.requestDescriptorFactory createAllDescriptors:mappings];
 }
 
-- (id <ESRequestDescriptorFactory>)createRequestDescriptorFactory:(NSDictionary<NSString *, RKEntityMapping *> *)mappings
+- (void)createRequestDescriptorFactoryIfNeeded
 {
+    if (self.requestDescriptorFactory)
+        return;
+
     id<ESRequestDescriptorFactory> requestFactory = nil;
 
     id response = self.config[kRequestsKey];
@@ -315,29 +341,29 @@ static NSString * const kRequestsKey = @"requests";
         {
             if ([response isKindOfClass:[NSDictionary class]])
             {
-                requestFactory = [[ESDictionaryRequestDescriptorFactory alloc] initWithMappings:mappings config:response];
+                requestFactory = [[ESDictionaryRequestDescriptorFactory alloc] initWithConfig:response];
             } else if([response isKindOfClass:[NSString class]])
             {
                 NSArray * components = [response pathComponents];
                 if(components.count == 1)
                 {
-                    requestFactory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappings filename:response];
+                    requestFactory = [[ESPlistRequestDescriptorFactory alloc] initWithFilename:response];
                 } else
                 {
-                    requestFactory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappings filepath:response];
+                    requestFactory = [[ESPlistRequestDescriptorFactory alloc] initWithFilepath:response];
                 }
 
 
             }
         } else
         {
-            requestFactory = [[ESPlistRequestDescriptorFactory alloc] initWithMappings:mappings];
+            requestFactory = [[ESPlistRequestDescriptorFactory alloc] init];
         }
     }
     @catch (NSException * exception)
     {
     }
 
-    return requestFactory;
+    self.requestDescriptorFactory = requestFactory;
 }
 @end

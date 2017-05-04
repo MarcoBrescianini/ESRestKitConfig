@@ -8,33 +8,27 @@
 
 #import "ESDictionaryMappingFactory.h"
 
-static NSString * const kEntityKey = @"Entity";
-static NSString * const kObjectKey = @"Object";
-static NSString * const kDynamicKey = @"Dynamic";
-static NSString * const kMatchersKey = @"Matchers";
-static NSString * const kKeyPathKey = @"keyPath";
-static NSString * const kExpectedValueKey = @"expectedValue";
-static NSString * const kMappingRefKey = @"mapping_ref";
-static NSString * const kAttributesKey = @"Attributes";
-static NSString * const kRelationshipsKey = @"Relationships";
-static NSString * const kSourceKey = @"source";
-static NSString * const kDestinationKey = @"destination";
-static NSString * const kMappingKey = @"mapping";
-static NSString * const kIdentificationKey = @"Identification";
-static NSString * const kModificationKey = @"Modification";
-static NSString * const kConnectionsKey = @"Connections";
-static NSString * const kRelationshipNameKey = @"relationshipName";
+static NSString *const kEntityKey = @"Entity";
+static NSString *const kObjectKey = @"Object";
+static NSString *const kDynamicKey = @"Dynamic";
+static NSString *const kMatchersKey = @"Matchers";
+static NSString *const kKeyPathKey = @"keyPath";
+static NSString *const kExpectedValueKey = @"expectedValue";
+static NSString *const kMappingRefKey = @"mapping_ref";
+static NSString *const kAttributesKey = @"Attributes";
+static NSString *const kRelationshipsKey = @"Relationships";
+static NSString *const kSourceKey = @"source";
+static NSString *const kDestinationKey = @"destination";
+static NSString *const kMappingKey = @"mapping";
+static NSString *const kIdentificationKey = @"Identification";
+static NSString *const kModificationKey = @"Modification";
+static NSString *const kConnectionsKey = @"Connections";
+static NSString *const kRelationshipNameKey = @"relationshipName";
 
 
 @implementation ESDictionaryMappingFactory
 
 - (instancetype)initWithDictionary:(NSDictionary *)config
-{
-    self = [self initWithDictionary:config store:nil];
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSDictionary *)config store:(RKManagedObjectStore *)store
 {
     NSAssert(config, @"Config dictionary must be provided");
 
@@ -43,7 +37,6 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
     if (self)
     {
         _config = config;
-        _store = store;
     }
 
     return self;
@@ -54,10 +47,15 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 
 - (NSDictionary<NSString *, RKMapping *> *)createMappings
 {
-    NSMutableDictionary<NSString *, RKMapping *> * mappings = [[NSMutableDictionary alloc] initWithCapacity:self.config.count];
+    return [self createMappingsInStore:nil];
+}
 
-    [self.config enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL * _Nonnull stop) {
-        RKMapping * mapping = [self createMappingNamed:key];
+- (NSDictionary<NSString *, RKMapping *> *)createMappingsInStore:(RKManagedObjectStore *)store
+{
+    NSMutableDictionary<NSString *, RKMapping *> *mappings = [[NSMutableDictionary alloc] initWithCapacity:self.config.count];
+
+    [self.config enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
+        RKMapping *mapping = [self createMappingNamed:key inStore:store];
 
         [mappings setValue:mapping forKey:key];
     }];
@@ -65,23 +63,42 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
     return mappings;
 }
 
+
 - (NSArray<RKMapping *> *)createAllMappings
 {
-    return [[self createMappings] allValues];
+    return [self createAllMappingsInStore:nil];
 }
+
+- (NSArray<RKMapping *> *)createAllMappingsInStore:(RKManagedObjectStore *)store
+{
+    return [[self createMappingsInStore:store] allValues];
+}
+
 
 - (RKMapping *)createMappingNamed:(NSString *)name
 {
-    NSDictionary * mappingDictionary = self.config[name];
+    NSDictionary *mappingDictionary = self.config[name];
 
     return [self createMappingFromDictionary:mappingDictionary];
 }
 
 - (RKMapping *)createMappingFromDictionary:(NSDictionary *)mappingDictionary
 {
-    RKMapping * mapping;
+    return [self createMappingFromDictionary:mappingDictionary inStore:nil];
+}
+
+- (RKMapping *)createMappingNamed:(NSString *)name inStore:(RKManagedObjectStore *)store
+{
+    NSDictionary *mappingDictionary = self.config[name];
+
+    return [self createMappingFromDictionary:mappingDictionary inStore:store];
+}
+
+- (RKMapping *)createMappingFromDictionary:(NSDictionary *)mappingDictionary inStore:(RKManagedObjectStore *)store
+{
+    RKMapping *mapping;
     if (mappingDictionary[kEntityKey])
-        mapping = [self createEntityMappingFrom:mappingDictionary];
+        mapping = [self createEntityMappingFrom:mappingDictionary inStore:store];
     else if (mappingDictionary[kObjectKey])
         mapping = [self createObjectMappingFrom:mappingDictionary];
     else if (mappingDictionary[kDynamicKey])
@@ -97,7 +114,7 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 
 - (RKDynamicMapping *)createDynamicMappingFrom:(NSDictionary *)dictionary
 {
-    RKDynamicMapping * mapping = [RKDynamicMapping new];
+    RKDynamicMapping *mapping = [RKDynamicMapping new];
 
     [self addMatchersToMapping:mapping fromConf:dictionary];
 
@@ -106,22 +123,22 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 
 - (void)addMatchersToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf
 {
-    NSArray * matchersConf = conf[kMatchersKey];
+    NSArray *matchersConf = conf[kMatchersKey];
 
-    for (NSDictionary * matcherConf in matchersConf)
+    for (NSDictionary *matcherConf in matchersConf)
         [self addMatcherToMapping:mapping fromConf:matcherConf];
 }
 
 - (void)addMatcherToMapping:(RKDynamicMapping *)mapping fromConf:(NSDictionary *)conf
 {
-    NSString * keyPath = conf[kKeyPathKey];
+    NSString *keyPath = conf[kKeyPathKey];
     id expectedValue = conf[kExpectedValueKey];
-    NSString * mappingRef = conf[kMappingRefKey];
-    RKMapping * objectMapping = [self createMappingNamed:mappingRef];
+    NSString *mappingRef = conf[kMappingRefKey];
+    RKMapping *objectMapping = [self createMappingNamed:mappingRef];
 
     if ([objectMapping isKindOfClass:[RKObjectMapping class]])
     {
-        RKObjectMappingMatcher * matcher = [RKObjectMappingMatcher matcherWithKeyPath:keyPath expectedValue:expectedValue objectMapping:(RKObjectMapping *) objectMapping];
+        RKObjectMappingMatcher *matcher = [RKObjectMappingMatcher matcherWithKeyPath:keyPath expectedValue:expectedValue objectMapping:(RKObjectMapping *) objectMapping];
 
         [mapping addMatcher:matcher];
     }
@@ -133,13 +150,13 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 
 - (RKObjectMapping *)createObjectMappingFrom:(NSDictionary *)dictionary
 {
-    RKObjectMapping * mapping = [RKObjectMapping mappingForClass:NSClassFromString(dictionary[kObjectKey])];
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:NSClassFromString(dictionary[kObjectKey])];
     [self addAttributesToMapping:mapping fromConf:dictionary];
-    [self addRelationshipsToMapping:mapping conf:dictionary];
+    [self addRelationshipsToMapping:mapping conf:dictionary inStore:nil];
 
-    NSNumber * forceCollection = dictionary[@"ForceCollection"];
+    NSNumber *forceCollection = dictionary[@"ForceCollection"];
 
-    if([forceCollection boolValue])
+    if ([forceCollection boolValue])
     {
         mapping.forceCollectionMapping = YES;
     }
@@ -149,7 +166,7 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 
 - (void)addAttributesToMapping:(RKObjectMapping *)mapping fromConf:(NSDictionary *)conf
 {
-    NSDictionary * attributesDictionary = conf[kAttributesKey];
+    NSDictionary *attributesDictionary = conf[kAttributesKey];
 
     if (![attributesDictionary isKindOfClass:[NSDictionary class]])
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:[NSString stringWithFormat:@"Attributes configuration must be a dictionary, an empty dictionary is allowed"] userInfo:nil];
@@ -158,65 +175,55 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
         [mapping addAttributeMappingsFromDictionary:attributesDictionary];
 }
 
-- (void)addRelationshipsToMapping:(RKObjectMapping *)mapping conf:(NSDictionary *)conf
+- (void)addRelationshipsToMapping:(RKObjectMapping *)mapping conf:(NSDictionary *)conf inStore:(RKManagedObjectStore *)store
 {
-    NSArray * relationships = conf[kRelationshipsKey];
+    NSArray *relationships = conf[kRelationshipsKey];
 
-    for (NSDictionary * relationshipConf in relationships)
+    for (NSDictionary *relationshipConf in relationships)
     {
-        RKRelationshipMapping * relationshipMapping = [self createRelationshipMappingFrom:relationshipConf];
+        RKRelationshipMapping *relationshipMapping = [self createRelationshipMappingFrom:relationshipConf inStore:store];
 
         [mapping addPropertyMapping:relationshipMapping];
     }
 }
 
-- (RKRelationshipMapping *)createRelationshipMappingFrom:(NSDictionary *)conf
+- (RKRelationshipMapping *)createRelationshipMappingFrom:(NSDictionary *)conf inStore:(RKManagedObjectStore *)store
 {
-    NSString * sourceKeyPath = conf[kSourceKey];
-    NSString * destinationKeyPath = conf[kDestinationKey];
-    RKMapping * mappingForRelationship;
+    NSString *sourceKeyPath = conf[kSourceKey];
+    NSString *destinationKeyPath = conf[kDestinationKey];
+    RKMapping *mappingForRelationship;
 
     if (conf[kMappingKey])
-        mappingForRelationship = [self createMappingFromDictionary:conf[kMappingKey]];
+        mappingForRelationship = [self createMappingFromDictionary:conf[kMappingKey] inStore:store];
     else if (conf[kMappingRefKey])
-        mappingForRelationship = [self createMappingNamed:conf[kMappingRefKey]];
+        mappingForRelationship = [self createMappingNamed:conf[kMappingRefKey] inStore:store];
     else
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:@"Mapping for relationship not found" userInfo:nil];
 
-    RKRelationshipMapping * relationshipMapping = [RKRelationshipMapping relationshipMappingFromKeyPath:sourceKeyPath toKeyPath:destinationKeyPath withMapping:mappingForRelationship];
+    RKRelationshipMapping *relationshipMapping = [RKRelationshipMapping relationshipMappingFromKeyPath:sourceKeyPath toKeyPath:destinationKeyPath withMapping:mappingForRelationship];
     return relationshipMapping;
 }
 
 //==================================================================================
 #pragma mark - Entity Mapping
 
-- (RKEntityMapping *)createEntityMappingFrom:(NSDictionary *)mappingDictionary
+- (RKEntityMapping *)createEntityMappingFrom:(NSDictionary *)mappingDictionary inStore:(RKManagedObjectStore *)store
 {
-    return [self createEntityMappingFrom:mappingDictionary inStore:self.store];
-}
-
-- (RKEntityMapping *)createEntityMappingFrom:(NSDictionary *)mappingDictionary inStore:(RKManagedObjectStore*)store
-{
-    RKEntityMapping * mapping = [self createEntityMappingByNameFrom:mappingDictionary inStore:store];
+    RKEntityMapping *mapping = [self createEntityMappingByNameFrom:mappingDictionary inStore:store];
 
     [self addAttributesToMapping:mapping fromConf:mappingDictionary];
     [self addIdentificationAttributesTo:mapping conf:mappingDictionary];
     [self addModificationAttributeTo:mapping conf:mappingDictionary];
-    [self addRelationshipsToMapping:mapping conf:mappingDictionary];
+    [self addRelationshipsToMapping:mapping conf:mappingDictionary inStore:store];
     [self addConnectionsTo:mapping conf:mappingDictionary];
     return mapping;
 }
 
-- (RKEntityMapping *)instantiateEntityMappingFrom:(NSDictionary *)conf
-{
-    return [self createEntityMappingByNameFrom:conf inStore:self.store];
-}
-
--(RKEntityMapping *)createEntityMappingByNameFrom:(NSDictionary *)conf inStore:(RKManagedObjectStore * )store
+- (RKEntityMapping *)createEntityMappingByNameFrom:(NSDictionary *)conf inStore:(RKManagedObjectStore *)store
 {
     NSParameterAssert(store);
 
-    NSString * entityName = conf[kEntityKey];
+    NSString *entityName = conf[kEntityKey];
 
     if (![entityName isKindOfClass:[NSString class]])
         @throw [NSException exceptionWithName:@"PlistMalformedException" reason:[NSString stringWithFormat:@"Entity name must be a string: %@", entityName] userInfo:nil];
@@ -232,12 +239,12 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 {
     id identificationAttribute = conf[kIdentificationKey];
 
-    if(!identificationAttribute)
+    if (!identificationAttribute)
         return;
 
-    if([identificationAttribute isKindOfClass:[NSString class]])
+    if ([identificationAttribute isKindOfClass:[NSString class]])
     {
-        if([identificationAttribute isEqualToString:@""])
+        if ([identificationAttribute isEqualToString:@""])
             return;
 
         identificationAttribute = @[identificationAttribute];
@@ -254,7 +261,7 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 {
     id modificationAttribute = conf[kModificationKey];
 
-    if(!modificationAttribute)
+    if (!modificationAttribute)
         return;
 
     if (![modificationAttribute isKindOfClass:[NSString class]])
@@ -267,18 +274,18 @@ static NSString * const kRelationshipNameKey = @"relationshipName";
 
 - (void)addConnectionsTo:(RKEntityMapping *)mapping conf:(NSDictionary *)conf
 {
-    NSArray * connections = conf[kConnectionsKey];
+    NSArray *connections = conf[kConnectionsKey];
 
-    for (NSDictionary * connection in connections)
+    for (NSDictionary *connection in connections)
         [self addConnectionTo:mapping conf:connection];
 }
 
 - (void)addConnectionTo:(RKEntityMapping *)mapping conf:(NSDictionary *)conf
 {
-    NSString * relationshipName = conf[kRelationshipNameKey];
-    NSString * sourceAttr = conf[kSourceKey];
-    NSString * destAttr = conf[kDestinationKey];
+    NSString *relationshipName = conf[kRelationshipNameKey];
+    NSString *sourceAttr = conf[kSourceKey];
+    NSString *destAttr = conf[kDestinationKey];
 
-    [mapping addConnectionForRelationship:relationshipName connectedBy:@{sourceAttr : destAttr}];
+    [mapping addConnectionForRelationship:relationshipName connectedBy:@{sourceAttr: destAttr}];
 }
 @end
