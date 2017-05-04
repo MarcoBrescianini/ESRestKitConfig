@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ESMappingFactory.h"
 #import "ESDictionaryMappingFactory.h"
-
-@class RKManagedObjectStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

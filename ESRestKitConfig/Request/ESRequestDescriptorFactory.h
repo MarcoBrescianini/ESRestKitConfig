@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 
 @class RKRequestDescriptor;
+@class RKMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 

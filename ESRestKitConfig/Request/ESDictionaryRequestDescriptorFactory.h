@@ -6,8 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "ESRequestDescriptorFactory.h"
 
-@class RKMapping;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ESDictionaryRequestDescriptorFactory : NSObject <ESRequestDescriptorFactory>

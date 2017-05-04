@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class RKMapping;
+@class RKManagedObjectStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -5,7 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ESRequestDescriptorFactory.h"
 #import "ESDictionaryRequestDescriptorFactory.h"
 
 NS_ASSUME_NONNULL_BEGIN
