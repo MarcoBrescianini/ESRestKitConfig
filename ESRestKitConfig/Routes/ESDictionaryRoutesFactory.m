@@ -10,6 +10,7 @@ static NSString * const kPathKey = @"path";
 static NSString * const kMethodKey = @"method";
 static NSString * const kTypeKey = @"type";
 static NSString * const kObjectClassKey = @"objectClass";
+static NSString *const kEscapePath = @"escapePath";
 
 static NSString * const kRouteTypeObject = @"object";
 static NSString * const kRouteTypeRelationship = @"relationship";
@@ -38,22 +39,32 @@ static NSString * const kRouteTypeRelationship = @"relationship";
     RKRequestMethod method = RKRequestMethodFromString(routeInfo[kMethodKey]);
     NSString * routeType = routeInfo[kTypeKey];
     Class objClass = NSClassFromString(routeInfo[kObjectClassKey]);
+    BOOL escapePath = NO;
 
+    if (routeInfo[kEscapePath] && [routeInfo[kEscapePath] isKindOfClass:[NSNumber class]])
+    {
+        escapePath = [routeInfo[kEscapePath] boolValue];
+    }
+
+    RKRoute *route;
     if ([routeType isEqualToString:kRouteTypeObject])
     {
         [self assertObjectClassExists:objClass forRoute:routeName];
 
-        return [RKRoute routeWithClass:objClass pathPattern:pattern method:method];
-    }
-
-    if ([routeType isEqualToString:kRouteTypeRelationship])
+        route = [RKRoute routeWithClass:objClass pathPattern:pattern method:method];
+    } else if ([routeType isEqualToString:kRouteTypeRelationship])
     {
         [self assertObjectClassExists:objClass forRoute:routeName];
 
-        return [RKRoute routeWithRelationshipName:routeName objectClass:objClass pathPattern:pattern method:method];
+        route = [RKRoute routeWithRelationshipName:routeName objectClass:objClass pathPattern:pattern method:method];
+    } else
+    {
+        route = [RKRoute routeWithName:routeName pathPattern:pattern method:method];
     }
 
-    return [RKRoute routeWithName:routeName pathPattern:pattern method:method];
+    route.shouldEscapePath = escapePath;
+
+    return route;
 }
 
 - (void)assertObjectClassExists:(Class)aClass forRoute:(NSString *)routeName
